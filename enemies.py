@@ -18,7 +18,7 @@ class Snake(pygame.sprite.Sprite):
         #eni boyu
         self.image = pygame.Surface([200, 10])
         #rengi
-        self.image.fill((255, 0, 0))  
+        self.image.fill((5, 50, 0))  
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, screenWidth - self.rect.width)
         self.rect.y = random.randint(0, screenHeight - self.rect.height)
