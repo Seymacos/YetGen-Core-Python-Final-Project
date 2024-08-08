@@ -11,8 +11,9 @@ screenHeight = 720
 # Ekran oluştur
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 
-# Resim yolu
-image_path =  "C:\\Users\\USER\\Downloads\\snake.png"
+image_path = "snake.png"
+
+
 # Yılan sınıfı
 class Snake(pygame.sprite.Sprite):
     def __init__(self, y, width, height, image_path, speed):
@@ -28,7 +29,9 @@ class Snake(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.x -= self.x_change #Yılanı sağdan sola hareket ettir.
-   
+        # Yılan ekranın sol tarafından çıkarsa, ekranın sağ tarafına geri dön
+        if self.rect.right < 0:
+            self.rect.left = screenWidth   
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
