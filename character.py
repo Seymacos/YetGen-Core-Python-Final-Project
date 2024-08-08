@@ -5,7 +5,7 @@ pygame.init()
 
 # Set up display (1280x720)
 screen = pygame.display.set_mode((1280, 720))
-pygame.display.set_caption("Super Mario Clone")
+pygame.display.set_caption("marioCharacter")
 
 # Set up the clock for FPS
 clock = pygame.time.Clock()
