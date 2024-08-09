@@ -3,8 +3,8 @@ import pygame
 # Initialize Pygame
 pygame.init()
 
-# Set up display (7000x720)
-screen = pygame.display.set_mode((7000, 720))
+# Set up display (1280x720)
+screen = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("marioCharacter")
 
 # Set up the clock for FPS
