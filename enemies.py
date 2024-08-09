@@ -11,6 +11,10 @@ screenHeight = 720
 # Ekran oluştur
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 
+a=0.07
+new_width = int(screenWidth * a)
+new_height = int(screenHeight * a)
+
 image_path = "snake.png"
 
 
@@ -20,18 +24,18 @@ class Snake(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(image_path)
         #self.image = pygame.transform.scale(self.image, (width, height))  # Resmi yılan boyutuna ölçeklendir
-        self.image = pygame.transform.smoothscale(self.image, (width, height))
+        self.image = pygame.transform.smoothscale(self.image, (new_width, new_height))
         self.rect = self.image.get_rect()
         self.rect.y = y
-        self.rect.x = screenWidth #Yılan ekranın sağ tarafından başlayacak
+        self.rect.x = 0 #Yılan ekranın sağ tarafından başlayacak
         self.x_change = speed #Yılanın hızı
         self.y_change = 0
 
     def update(self):
-        self.rect.x -= self.x_change #Yılanı sağdan sola hareket ettir.
+        self.rect.x += self.x_change #Yılanı soldan sağa hareket ettir.
         # Yılan ekranın sol tarafından çıkarsa, ekranın sağ tarafına geri dön
-        if self.rect.right < 0:
-            self.rect.left = screenWidth   
+        if self.rect.left > screenWidth:
+            self.rect.left = 0  
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
