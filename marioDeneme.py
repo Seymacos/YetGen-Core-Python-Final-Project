@@ -20,18 +20,3 @@ class Mario:
             self.is_jumping = True
             self.jump_count = 0
 
-        if self.is_jumping:
-            if keys[pygame.K_SPACE] and self.jump_count < self.max_jump_duration:
-                self.rect.y -= self.jump_height
-                self.jump_count += 1
-            else:
-                self.is_jumping = False
-
-        if not self.is_jumping:
-            if self.rect.y < self.screen_height - self.rect.height:
-                self.rect.y += self.fall_speed
-            else:
-                self.rect.y = self.screen_height - self.rect.height
-
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
