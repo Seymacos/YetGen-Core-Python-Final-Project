@@ -11,7 +11,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Super Mario Benzeri Oyun")
 
 # Renkler
-LIGHT_BLUE = (173, 216, 230)
+# LIGHT_BLUE = (173, 216, 230)
 
 # Mario karakteri
 mario_img = pygame.image.load("mario.png")
