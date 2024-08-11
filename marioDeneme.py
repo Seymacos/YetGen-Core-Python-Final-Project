@@ -60,10 +60,10 @@ while True:
             mario_rect.y = SCREEN_HEIGHT - mario_rect.height
 
     # Ekranı temizle ve arka planı çiz
-    screen.fill(LIGHT_BLUE)
+    # screen.fill(LIGHT_BLUE)
 
     # Arka planı ekrana çiz (arka plan kayıyor)
-    pygame.draw.rect(screen, LIGHT_BLUE, (background_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+    # pygame.draw.rect(screen, LIGHT_BLUE, (background_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Mario'yu ekrana çiz (ekranın ortasında sabit kalır)
     screen.blit(mario_img, mario_rect)
