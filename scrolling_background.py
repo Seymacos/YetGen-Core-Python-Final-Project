@@ -17,7 +17,7 @@ backg_new= pygame.transform.scale(backg, (scwid, scheight))
 
 # ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
 tile_size= 40 # playerin büyüklüğüne ve hareketlerine göre parkur ve ekran yeniden şekillendirilebilir
-scroll_speed=5
+scroll_speed=3
 background_scroll= 0
 
 

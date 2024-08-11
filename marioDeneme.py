@@ -20,3 +20,5 @@ class Mario:
             self.is_jumping = True
             self.jump_count = 0
 
+    
+
