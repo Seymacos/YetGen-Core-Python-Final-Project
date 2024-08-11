@@ -16,7 +16,7 @@ LIGHT_BLUE = (173, 216, 230)
 # Mario karakteri
 mario_img = pygame.image.load("mario.png")
 mario_rect = mario_img.get_rect()
-mario_rect.x = SCREEN_WIDTH // 2  # Mario'yu ekranın ortasına yerleştir
+mario_rect.x = SCREEN_WIDTH // 2 - mario_rect.width // 2  # Mario'yu ekranın ortasına yerleştir
 mario_rect.y = SCREEN_HEIGHT - mario_rect.height  # Mario'nun başlangıç y pozisyonu
 
 # Zıplama değişkenleri
@@ -59,18 +59,14 @@ while True:
         else:
             mario_rect.y = SCREEN_HEIGHT - mario_rect.height
 
-    # Ekranı kaydır
-    background_x -= 3  # Arka planın kayma hızı
-
     # Ekranı temizle ve arka planı çiz
     screen.fill(LIGHT_BLUE)
 
+    # Arka planı ekrana çiz (arka plan kayıyor)
+    pygame.draw.rect(screen, LIGHT_BLUE, (background_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+
     # Mario'yu ekrana çiz (ekranın ortasında sabit kalır)
     screen.blit(mario_img, mario_rect)
-
-    # Arka planı ekrana çiz (arka plan kayıyor)
-    # Arka planı sonsuz kaydırmak için arka planın tekrar eden parçalarını çiz
-    pygame.draw.rect(screen, LIGHT_BLUE, (background_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Ekranı güncelle
     pygame.display.flip()
