@@ -7,7 +7,7 @@ pygame.init()
 # Ekran boyutları
 screenWidth = 1280
 screenHeight = 720
-
+backgroundWidth=1600
 # Ekran oluştur
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 a1=0.07
@@ -19,8 +19,9 @@ new_height2 = int(screenHeight * a2)
 
 image_path1 = "snake.png"
 image_path2 = "snake2.png"
-
-
+image_path3= "C:\\Users\\USER\\Downloads\\pngwing.com.png"
+image_path4= "C:\\Users\\USER\\Downloads\\pngwing.com (1).png"
+image_path5="C:\\Users\\USER\\Downloads\\I want an evil  73041113-7bd8-4b6a-97ad-ea25dfddc33e.png"
 # Yılan sınıfı Sağdan sola doğru
 class Snake1(pygame.sprite.Sprite):
     def __init__(self, y, width, height, image_path, speed):
@@ -66,14 +67,71 @@ class Snake2(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
+class goodMushrooms(pygame.sprite.Sprite):
+    def __init__(self,x,y,image_path):
+        super().__init__()
+
+        self.image= pygame.image.load(image_path)
+        self.image = pygame.transform.smoothscale(self.image, (new_width1, new_height1))
+        self.rect= self.image.get_rect()
+        self.rect.y=y
+        self.x=x
+
+class badMushrooms(pygame.sprite.Sprite):
+    def __init__(self,x,y,image_path):
+        super().__init__()
+
+        self.image= pygame.image.load(image_path)
+        self.image = pygame.transform.smoothscale(self.image, (new_width2, new_height2))
+        self.rect= self.image.get_rect()
+        self.rect.y=y
+        self.x=x
+class Bird(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, image_path, speed):
+        super().__init__()
+        
+        self.image = pygame.image.load(image_path)
+        self.image = pygame.transform.smoothscale(self.image, (new_width2, new_height2))
+        self.rect = self.image.get_rect()
+        self.rect.y = y
+        self.rect.x = x
+        self.x_change = speed 
+        self.y_change = 0
+
+    def update(self):
+        self.rect.x += self.x_change 
+       
+        if self.rect.left > screenWidth:
+            self.rect.right = 0  
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+'''
+    def poops(self,x,y):
+        poops=[]
+            # Pisleme: belirli aralıklarla
+        if random.randint(1, 50) == 1:
+           poops.append(x, y)
+
+    # Pislikleri güncelle ve çiz
+        for poop in poops:
+           poop[1] += 7  # Pisliği aşağı hareket ettir
+           pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(poop[0], poop[1], 10, 20))
+
+   '''
+
+
+
 # Tüm sprite'ları tutacak grup
 all_sprites = pygame.sprite.Group()
 
 snake1 = Snake1(y=200, width=100, height=100, image_path=image_path1, speed=5)
-snake2 = Snake1(y=400, width=100, height=100, image_path=image_path1, speed=10)
-snake3 = Snake2(y=600, width=100, height=100, image_path=image_path2, speed=2)
+snake2 = Snake2(y=600, width=100, height=100, image_path=image_path2, speed=2)
+mushrooms1= goodMushrooms(200,100,image_path3)
+mushrooms2= badMushrooms(200,400,image_path4)
+bird = Bird(x=200,y=600, width=100, height=100, image_path=image_path5, speed=2)
+#all_sprites.add(snake1, snake2,snake3)
+all_sprites.add(snake1,snake2,mushrooms1,mushrooms2,bird)
 
-all_sprites.add(snake1, snake2,snake3)
 
 # Ana döngü
 running = True
@@ -87,8 +145,8 @@ while running:
     all_sprites.update()
 
     # Ekranı açık sarıya boyayalım
-    screen.fill((255, 255, 153))
-
+    #screen.fill((255, 255, 153))
+  
     # Yılanı çiz
     all_sprites.draw(screen)
 
