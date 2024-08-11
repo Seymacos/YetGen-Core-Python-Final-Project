@@ -145,7 +145,7 @@ while running:
     all_sprites.update()
 
     # Ekranı açık sarıya boyayalım
-    #screen.fill((255, 255, 153))
+    screen.fill((255, 255, 153))
   
     # Yılanı çiz
     all_sprites.draw(screen)
