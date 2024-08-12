@@ -63,7 +63,7 @@ while running:
 
     all_sprites.update()
 
-    screen.fill((135, 206, 250))  # Sky blue background
+    #screen.fill((135, 206, 250))  # Sky blue background
     all_sprites.draw(screen)
     pygame.display.flip()
     clock.tick(60)  # 60 FPS
