@@ -20,5 +20,6 @@ class Mario:
             self.is_jumping = True
             self.jump_count = 0
 
-    
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)    
 
