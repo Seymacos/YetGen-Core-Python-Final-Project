@@ -1,6 +1,6 @@
 import pygame
 import sys
-from enemies import Snake1
+from enemies import Snake1, Snake2, badMushrooms, goodMushrooms, Bird
 from marioDeneme import Mario
 from scrolling_background import grid_screen , World, world_data
 
@@ -14,7 +14,7 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Super Mario Benzeri Oyun")
+pygame.display.set_caption("************")
 
 # Renkler
 LIGHT_BLUE = (173, 216, 230)
@@ -40,7 +40,7 @@ background_x = 0
 
 # Düşmanları başlat (örnekler)
 snake1 = Snake1(y=200, width=100, height=100, image_path="snake.png", speed=5, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
-#snake2 = Snake2(y=600, width=100, height=100, image_path="snake2.png", speed=2, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
+snake2 = Snake2(y=600, width=100, height=100, image_path="snake2.png", speed=2, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
 
 # Tüm sprite'ları tutacak grup
 all_sprites = pygame.sprite.Group()
