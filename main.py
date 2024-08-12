@@ -2,6 +2,9 @@ import pygame
 import sys
 from enemies import Snake1
 from marioDeneme import Mario
+from scrolling_background import grid_screen , World, world_data
+
+
 
 # Pygame'i başlat
 pygame.init()
@@ -15,6 +18,19 @@ pygame.display.set_caption("Super Mario Benzeri Oyun")
 
 # Renkler
 LIGHT_BLUE = (173, 216, 230)
+
+# background images 
+sun= pygame.image.load("sun.png")
+backg= pygame.image.load("sky.png")
+backg_new= pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
+# ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
+tile_size= 40 # mainde grid_screen func çağırılacak
+scroll_speed=3
+background_scroll= 0
+
+#world
+world= World(world_data)
 
 # Mario karakterini başlat
 mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -41,6 +57,12 @@ while True:
 
     keys = pygame.key.get_pressed()
     
+    #ekranı böl ve arka planı koy
+    screen.blit(backg_new, (0,0))
+    
+    grid_screen()
+
+    world.draw()
     # Mario'nun hareketini yönet
     mario.handle_input(keys)
 
@@ -50,17 +72,21 @@ while True:
     # Arka planı kaydır
     background_x -= 3  # Arka planın kayma hızı
 
-    # Ekranı temizle ve arka planı çiz
-    screen.fill(LIGHT_BLUE)
 
     # Arka planı sonsuz kaydırmak için arka planın tekrar eden parçalarını çiz
-    pygame.draw.rect(screen, LIGHT_BLUE, (background_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+    # pygame.draw.rect(screen, LIGHT_BLUE, (background_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Mario'yu ekrana çiz
     mario.draw(screen)
 
     # Düşmanları ekrana çiz
     all_sprites.draw(screen)
+     
+    # update the scroll position to make it continuous
+    background_scroll+= scroll_speed
+    if background_scroll>= SCREEN_WIDTH:
+        background_scroll= 0
+    pygame.display.update()
 
     # Ekranı güncelle
     pygame.display.flip()
