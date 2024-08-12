@@ -56,16 +56,17 @@ world= World(world_data)
 # Mario karakterini başlat
 mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-# Arka planın x koordinatı
-background_x = 0
-
-# Düşmanları başlat (örnekler)
+ # Düşmanları başlat 
 snake1 = Snake1(y=200, width=100, height=100, image_path="snake.png", speed=5, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
-snake2 = Snake2(y=600, width=100, height=100, image_path="snake2.png", speed=2, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
+snake2 = Snake2(y=300, width=100, height=100, image_path="snake2.png", speed=2, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
+bird = Bird(x=200,y=400, width=100, height=100, image_path="Bird.png", speed=2,  new_width=100, new_height=100)
+badMushrooms1=badMushrooms(x=100,y=20,image_path="BadMushrooms.png",new_width=100, new_height=100)
+Mushrooms1=goodMushrooms(x=150,y=100,image_path="Mushrooms.png",new_width=100, new_height=100)
 
-# Tüm sprite'ları tutacak grup
+
+# Düşmanları güncelle
 all_sprites = pygame.sprite.Group()
-all_sprites.add(snake1)
+all_sprites.add(snake1,snake2,bird,badMushrooms1,Mushrooms1)
 
 # Oyun döngüsü
 clock = pygame.time.Clock()
@@ -82,18 +83,11 @@ while True:
     screen.blit(backg_new, (0,0))
     
     world.draw(screen, background_scroll)
+
     # Mario'nun hareketini yönet
     mario.handle_input(keys)
-
-    # Düşmanları güncelle
+   
     all_sprites.update()
-
-    # Arka planı kaydır
-    background_x -= 3  # Arka planın kayma hızı
-
-
-    # Arka planı sonsuz kaydırmak için arka planın tekrar eden parçalarını çiz
-    # pygame.draw.rect(screen, LIGHT_BLUE, (background_x, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
 
     # Mario'yu ekrana çiz
     mario.draw(screen)
@@ -105,6 +99,7 @@ while True:
     background_scroll+= scroll_speed
     if background_scroll>= SCREEN_WIDTH:
         background_scroll= 0
+
     pygame.display.update()
 
     # Ekranı güncelle

@@ -22,4 +22,16 @@ class Mario:
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)    
+"""
+class healtyBar ():
+    def __init__(self,image,x,y,healty):
 
+        super().__init__()
+        self.image= pygame.image.rect
+        self.rect= self.image.get_rect()
+        self.rect.y=y
+        self.x=x
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)        
+        """   

@@ -11,6 +11,8 @@ class Snake1(pygame.sprite.Sprite):
         self.rect.x = screen_width
         self.x_change = -speed
 
+    def update(self):
+        self.rect.x += self.x_change
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -29,6 +31,8 @@ class Snake2(pygame.sprite.Sprite):
         self.x_change = speed #Yılanın hızı
         self.y_change = 0
 
+    def update(self):
+        self.rect.x += self.x_change
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -37,8 +41,6 @@ class Snake2(pygame.sprite.Sprite):
 class goodMushrooms(pygame.sprite.Sprite):
     def __init__(self,x,y,image_path, new_width, new_height):
         super().__init__()
-
-
         self.image= pygame.image.load(image_path)
         self.image = pygame.transform.smoothscale(self.image, (new_width, new_height))
         self.rect= self.image.get_rect()
@@ -49,8 +51,6 @@ class goodMushrooms(pygame.sprite.Sprite):
 class badMushrooms(pygame.sprite.Sprite):
     def __init__(self,x,y,image_path, new_width, new_height):
         super().__init__()
-
-
         self.image= pygame.image.load(image_path)
         self.image = pygame.transform.smoothscale(self.image, (new_width, new_height))
         self.rect= self.image.get_rect()
@@ -69,11 +69,10 @@ class Bird(pygame.sprite.Sprite):
         self.y_change = 0
 
 
-    def update(self,width):
+    def update(self):
         self.rect.x += self.x_change
        
-        if self.rect.left > width:
-            self.rect.right = 0  
+       
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
