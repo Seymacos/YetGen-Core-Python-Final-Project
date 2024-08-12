@@ -11,12 +11,30 @@ pygame.display.set_caption("Pikseller's Game")
 sun= pygame.image.load("sun.png")
 backg= pygame.image.load("sky.png")
 backg_new= pygame.transform.scale(backg, (scwid, scheight))
+mario_img = pygame.image.load("mario.png")
 
 # Mario karakteri
-mario_img = pygame.image.load("mario.png")
-mario_rect = mario_img.get_rect()
-mario_rect.x = scwid// 2  # Mario'yu ekranın ortasına yerleştir
-mario_rect.y = scheight - mario_rect.height  # Mario'nun başlangıç y pozisyonu
+class Mario:
+    def __init__(self, scwid, scheight):
+        self.screen_width = scwid
+        self.screen_height = scheight
+        self.image = pygame.image.load("mario.png")
+        self.rect = self.image.get_rect()
+        self.rect.x = self.screen_width // 2  # Mario'yu ekranın ortasına yerleştir
+        self.rect.y = self.screen_height - self.rect.height  # Mario'nun başlangıç y pozisyonu
+        self.is_jumping = False
+        self.jump_height = 20  # Zıplama yüksekliği
+        self.max_jump_duration = 15  # Maksimum zıplama süresi
+        self.jump_count = 0  # Zıplama süresi sayacı
+        self.fall_speed = 7  # Düşme hızı
+
+    def handle_input(self, keys):
+        if keys[pygame.K_SPACE] and not self.is_jumping and self.rect.y == self.screen_height - self.rect.height:
+            self.is_jumping = True
+            self.jump_count = 0
+
+
+mario= Mario(scwid,scheight)
 
 # Zıplama değişkenleri
 is_jumping = False
@@ -127,25 +145,25 @@ while run:
             run= False
     keys = pygame.key.get_pressed()
      # Zıplama kontrolü
-    if keys[pygame.K_SPACE] and not is_jumping and mario_rect.y == scheight- mario_rect.height:
+    if keys[pygame.K_SPACE] and not is_jumping and mario.rect.y == scheight- mario.rect.height:
         is_jumping = True
         jump_count = 0
 
     if is_jumping:
         if keys[pygame.K_SPACE] and jump_count < max_jump_duration:
-            mario_rect.y -= jump_height
+            mario.rect.y -= jump_height
             jump_count += 1
         else:
             is_jumping = False
 
     # Mario düşüşü
     if not is_jumping:
-        if mario_rect.y < scheight - mario_rect.height:
-            mario_rect.y += fall_speed
+        if mario.rect.y < scheight - mario.rect.height:
+            mario.rect.y += fall_speed
         else:
-            mario_rect.y = scheight - mario_rect.height
+            mario.rect.y = scheight - mario.rect.height
     
-    win.blit(mario_img, mario_rect)
+    win.blit(mario_img, mario.rect)
 
 # update the scroll position to make it continuous
     background_scroll+= scroll_speed
@@ -156,3 +174,4 @@ while run:
     clock.tick(60)
 
 
+# COLLISION 
