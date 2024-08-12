@@ -1,31 +1,14 @@
 import pygame 
 pygame.init()
 
-scwid= 1280
-scheight=720
-win= pygame.display.set_mode((scwid,scheight))
-pygame.display.set_caption("Pikseller's Game")
-
-# background images 
-sun= pygame.image.load("sun.png")
-backg= pygame.image.load("sky.png")
-backg_new= pygame.transform.scale(backg, (scwid, scheight))
-
-
-# platform
- 
-
-# ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
 tile_size= 40 # mainde grid_screen func çağırılacak
-scroll_speed=3
-background_scroll= 0
 
 
-def grid_screen():
+def grid_screen(win,SCREEN_WIDTH,SCREEN_HEIGHT):
     for line in range(0,19):
-        pygame.draw.line(win,(255,255,255), (0,line* tile_size), (scwid, line* tile_size))
+        pygame.draw.line(win,(255,255,255), (0,line* tile_size), (SCREEN_WIDTH, line* tile_size))
     for line in range(0,33):
-        pygame.draw.line(win,(255,255,255), (line*tile_size,0), (line*tile_size, scheight))
+        pygame.draw.line(win,(255,255,255), (line*tile_size,0), (line*tile_size, SCREEN_HEIGHT))
 
 class World():
     def __init__(self, data):
@@ -63,54 +46,12 @@ class World():
                 col_count+=1
             row_count+=1
 
-    def draw(self):
-        #for tile in self.tile_list:
-            #win.blit(tile[0], tile[1])
-         # Adjust tile positions based on background_scroll
+    def draw(self, win, background_scroll):
+ 
         for tile in self.tile_list:
             win.blit(tile[0], (tile[1].x - background_scroll, tile[1].y))
 
 
-world_data = [
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,2,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,2,0,2,2,0],
-    [0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0],
-    [0,0,0,0,0,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [2,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-]
 
-
-
-world=World(world_data)
-
-run= True 
-while run:
-    win.blit(backg_new, (0,0))
-    
-
-    grid_screen()
-    world.draw()
-    for event in pygame.event.get():
-        if event.type== pygame.QUIT:
-            run= False
-
-# update the scroll position to make it continuous
-    background_scroll+= scroll_speed
-    if background_scroll>= scwid:
-        background_scroll= 0
-    pygame.display.update()
 
 

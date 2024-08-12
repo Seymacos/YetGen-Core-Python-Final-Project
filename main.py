@@ -1,9 +1,8 @@
 import pygame
 import sys
-from enemies import Snake1
+from enemies import Snake1, Snake2, badMushrooms, goodMushrooms, Bird
 from marioDeneme import Mario
-from scrolling_background import grid_screen , World, world_data
-
+from scrolling_background import World
 
 
 # Pygame'i başlat
@@ -14,7 +13,7 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Super Mario Benzeri Oyun")
+pygame.display.set_caption("************")
 
 # Renkler
 LIGHT_BLUE = (173, 216, 230)
@@ -24,12 +23,34 @@ sun= pygame.image.load("sun.png")
 backg= pygame.image.load("sky.png")
 backg_new= pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
+
 # ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
 tile_size= 40 # mainde grid_screen func çağırılacak
 scroll_speed=3
 background_scroll= 0
 
 #world
+world_data = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,2,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,2,0,2,2,0],
+    [0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0],
+    [0,0,0,0,0,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [2,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+]
+
 world= World(world_data)
 
 # Mario karakterini başlat
@@ -40,7 +61,7 @@ background_x = 0
 
 # Düşmanları başlat (örnekler)
 snake1 = Snake1(y=200, width=100, height=100, image_path="snake.png", speed=5, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
-#snake2 = Snake2(y=600, width=100, height=100, image_path="snake2.png", speed=2, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
+snake2 = Snake2(y=600, width=100, height=100, image_path="snake2.png", speed=2, screen_width=SCREEN_WIDTH, new_width=100, new_height=100)
 
 # Tüm sprite'ları tutacak grup
 all_sprites = pygame.sprite.Group()
@@ -60,9 +81,7 @@ while True:
     #ekranı böl ve arka planı koy
     screen.blit(backg_new, (0,0))
     
-    grid_screen()
-
-    world.draw()
+    world.draw(screen, background_scroll)
     # Mario'nun hareketini yönet
     mario.handle_input(keys)
 
