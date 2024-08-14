@@ -1,5 +1,5 @@
 import pygame
-
+pygame.init()
 class Mario:
     def __init__(self, x, y):
         self.image = pygame.image.load('mario.png')
