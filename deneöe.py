@@ -33,6 +33,11 @@ class Mario:
             self.is_jumping = True
             self.jump_count = 0
 
+# CHECK FOR COLLISION 
+    for tile in world.tile_list:
+        # collision for y direction
+        if tile[1].colliderect(self.rect.x, self.rect.y, self.screen_width, self.screen_height):
+
 
 mario= Mario(scwid,scheight)
 
@@ -56,6 +61,8 @@ clock = pygame.time.Clock()
 tile_size= 40 # playerin büyüklüğüne ve hareketlerine göre parkur ve ekran yeniden şekillendirilebilir
 scroll_speed=5
 background_scroll= 0
+scroll_count= 0
+max_repetition= 5
 
 
 def grid_screen():
@@ -71,7 +78,7 @@ class World():
         dirt_img= pygame.image.load("dirt.png")
         grass_img= pygame.image.load("grass.png")
         exit_img=pygame.image.load("exit.png")
-
+    
         row_count=0
         for row in data:
             col_count=0
@@ -106,7 +113,7 @@ class World():
          # Adjust tile positions based on background_scroll
         for tile in self.tile_list:
             win.blit(tile[0], (tile[1].x - background_scroll, tile[1].y))
-
+            pygame.draw.rect(win, (255,255,255), tile[1], 2)
 
 world_data = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -164,11 +171,15 @@ while run:
             mario.rect.y = scheight - mario.rect.height
     
     win.blit(mario_img, mario.rect)
+    pygame.draw.rect(win, (255,255,255), mario.rect,2)
 
 # update the scroll position to make it continuous
-    background_scroll+= scroll_speed
+    if scroll_count < max_repetition:
+
+        background_scroll+= scroll_speed
     if background_scroll>= scwid:
         background_scroll= 0
+        scroll_count+=1
     pygame.display.update()
     pygame.display.flip()
     clock.tick(60)
