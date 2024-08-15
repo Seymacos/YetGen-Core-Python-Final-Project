@@ -86,7 +86,8 @@ while True:
 
     # Mario'nun hareketini yönet
     mario.handle_input(keys)
-   
+    mario.update(keys) 
+    
     all_sprites.update()
 
     # Mario'yu ekrana çiz

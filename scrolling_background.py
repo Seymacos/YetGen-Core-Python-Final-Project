@@ -50,7 +50,12 @@ class World():
  
         for tile in self.tile_list:
             win.blit(tile[0], (tile[1].x - background_scroll, tile[1].y))
-
+    def check_collision(self, rect):
+        # Check for collision with any tile
+        for tile in self.tile_list:
+            if tile[1].colliderect(rect):
+                return tile[1]
+        return None
 
 
 
