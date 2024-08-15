@@ -3,17 +3,19 @@ pygame.init()
 
 tile_size= 40 # mainde grid_screen func çağırılacak
 
-
-def grid_screen(win,SCREEN_WIDTH,SCREEN_HEIGHT):
+#Geid bir düzen oluşturur.
+def grid_screen(screen,SCREEN_WIDTH,SCREEN_HEIGHT):
     for line in range(0,19):
-        pygame.draw.line(win,(255,255,255), (0,line* tile_size), (SCREEN_WIDTH, line* tile_size))
+        pygame.draw.line(screen,(255,255,255), (0,line* tile_size), (SCREEN_WIDTH, line* tile_size))
     for line in range(0,33):
-        pygame.draw.line(win,(255,255,255), (line*tile_size,0), (line*tile_size, SCREEN_HEIGHT))
+        pygame.draw.line(screen,(255,255,255), (line*tile_size,0), (line*tile_size, SCREEN_HEIGHT))
 
+#World sınıfı
 class World():
     def __init__(self, data):
         self.tile_list= []
 
+        #Kullanılan resimlerin yüklenmesi.
         dirt_img= pygame.image.load("dirt.png")
         grass_img= pygame.image.load("grass.png")
         exit_img=pygame.image.load("exit.png")
@@ -36,6 +38,7 @@ class World():
                     img_rect.y= row_count * tile_size
                     tile= (img, img_rect)
                     self.tile_list.append(tile)
+                    #Exit fayansı
                 if tile==7:
                     img= pygame.transform.scale(exit_img, (tile_size, tile_size*2))
                     img_rect= img.get_rect()
@@ -46,12 +49,14 @@ class World():
                 col_count+=1
             row_count+=1
 
-    def draw(self, win, background_scroll):
+    #Faynasları çizilmesini sağlar.
+    def draw(self, screen, background_scroll):
  
         for tile in self.tile_list:
-            win.blit(tile[0], (tile[1].x - background_scroll, tile[1].y))
+            screen.blit(tile[0], (tile[1].x - background_scroll, tile[1].y))
+   
+   #Çarpışmaları kontrol eder.
     def check_collision(self, rect):
-        # Check for collision with any tile
         for tile in self.tile_list:
             if tile[1].colliderect(rect):
                 return tile[1]

@@ -77,7 +77,6 @@ while True:
             pygame.quit()
             sys.exit()
 
-    keys = pygame.key.get_pressed()
     
     #ekranı böl ve arka planı koy
     screen.blit(backg_new, (0,0))
@@ -85,8 +84,7 @@ while True:
     world.draw(screen, background_scroll)
 
     # Mario'nun hareketini yönet
-    mario.handle_input(keys)
-    mario.update(keys) 
+    mario.update(world) 
     
     all_sprites.update()
 
