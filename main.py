@@ -3,7 +3,7 @@ import sys
 from enemies import Snake1, Snake2, badMushrooms, goodMushrooms, Bird
 from marioDeneme import Mario
 from scrolling_background import World
-
+from menu import draw_menu, event_handler
 
 # Pygame'i başlat
 pygame.init()
@@ -71,38 +71,44 @@ all_sprites.add(snake1,snake2,bird,badMushrooms1,Mushrooms1)
 # Oyun döngüsü
 clock = pygame.time.Clock()
 
+main_menu= True 
+menu_items = ["Start", "Options", "Quit"]
+selected_item = 0
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if main_menu== True: #display menu
+            draw_menu()
+            event_handler()
+        else:
+            keys = pygame.key.get_pressed()
+                
+            #ekranı böl ve arka planı koy
+            screen.blit(backg_new, (0,0))
 
-    keys = pygame.key.get_pressed()
-    
-    #ekranı böl ve arka planı koy
-    screen.blit(backg_new, (0,0))
-    
-    world.draw(screen, background_scroll)
+            world.draw(screen, background_scroll)
 
-    # Mario'nun hareketini yönet
-    mario.handle_input(keys)
-    mario.update(keys) 
-    
-    all_sprites.update()
+                # Mario'nun hareketini yönet
+            mario.handle_input(keys)
+            mario.update(keys) 
+                
+            all_sprites.update()
 
-    # Mario'yu ekrana çiz
-    mario.draw(screen)
+                # Mario'yu ekrana çiz
+            mario.draw(screen)
 
-    # Düşmanları ekrana çiz
-    all_sprites.draw(screen)
-     
-    # update the scroll position to make it continuous
-    background_scroll+= scroll_speed
-    if background_scroll>= SCREEN_WIDTH:
-        background_scroll= 0
+                # Düşmanları ekrana çiz
+            all_sprites.draw(screen)
+                
+                # update the scroll position to make it continuous
+            background_scroll+= scroll_speed
+            if background_scroll>= SCREEN_WIDTH:
+                background_scroll= 0
 
-    pygame.display.update()
+            pygame.display.update()
 
-    # Ekranı güncelle
-    pygame.display.flip()
-    clock.tick(60)
+                # Ekranı güncelle
+            pygame.display.flip()
+            clock.tick(60)
