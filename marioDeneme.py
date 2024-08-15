@@ -18,8 +18,12 @@ class Mario(pygame.sprite.Sprite):
         self.velocity_y = 0
         self.velocity_x = 0
         self.move_speed = 5  # Yatay hareket hızı
+        self.is_alive = True  # Mario'nun canlı olup olmadığını belirler
         
-    def update(self, world):
+    def update(self, world, enemies):
+        if not self.is_alive:
+            return  # Eğer Mario ölmüşse, hiçbir işlem yapılmaz
+      
         dx=0
         dy=0
         
@@ -57,8 +61,11 @@ class Mario(pygame.sprite.Sprite):
                     dy = tile[1].top - self.rect.bottom  # Aşağıya doğru çarpışma
                     self.is_jumping = False
                     self.velocity_y = 0
-
-
+        # Çarpışma kontrolü (düşmanlarla)
+        if self.check_collision_with_enemies(enemies):
+            self.is_alive = False
+            print("Mario öldü!")  # Oyun sonu mesajı veya işlemi
+       
        #Oyuncunun koordinatları    
         self.rect.x+=dx
         self.rect.y+=dy
@@ -74,7 +81,12 @@ class Mario(pygame.sprite.Sprite):
             self.rect.left = 0
         elif self.rect.right > self.screen_width:
             self.rect.right = self.screen_width
-
+   
+    def check_collision_with_enemies(self, enemies):
+        for enemy in enemies:
+            if self.rect.colliderect(enemy.rect):
+                return True
+        return False
 
 
     def draw(self, screen):

@@ -99,9 +99,10 @@ while True:
         screen.blit(backg_new, (0, 0))
     
         world.draw(screen, background_scroll)
+        Mushrooms1.draw(screen)
 
         # Mario'nun hareketini yönet
-        mario.update(world) 
+        mario.update(world)
     
         all_sprites.update()
 

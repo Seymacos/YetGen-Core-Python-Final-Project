@@ -1,4 +1,5 @@
 import pygame 
+from enemies import Snake1, Snake2, badMushrooms, goodMushrooms, Bird
 pygame.init()
 
 tile_size= 40 # mainde grid_screen func çağırılacak
@@ -14,6 +15,7 @@ def grid_screen(screen,SCREEN_WIDTH,SCREEN_HEIGHT):
 class World():
     def __init__(self, data):
         self.tile_list= []
+        self.bad_mushrooms_list = pygame.sprite.Group()
 
         #Kullanılan resimlerin yüklenmesi.
         dirt_img= pygame.image.load("dirt.png")
@@ -38,7 +40,10 @@ class World():
                     img_rect.y= row_count * tile_size
                     tile= (img, img_rect)
                     self.tile_list.append(tile)
-                    #Exit fayansı
+                if tile == 3:
+                    bad_mushroom = badMushrooms(col_count * tile_size, row_count * tile_size, "BadMushrooms.png", tile_size, tile_size)
+                    self.bad_mushrooms_list.add(bad_mushroom)
+                   #Exit fayansı
                 if tile==7:
                     img= pygame.transform.scale(exit_img, (tile_size, tile_size*2))
                     img_rect= img.get_rect()
@@ -54,7 +59,7 @@ class World():
  
         for tile in self.tile_list:
             screen.blit(tile[0], (tile[1].x - background_scroll, tile[1].y))
-   
+        self.bad_mushrooms_list.draw(screen)
    #Çarpışmaları kontrol eder.
     def check_collision(self, rect):
         for tile in self.tile_list:
