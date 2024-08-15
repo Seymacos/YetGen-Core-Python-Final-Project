@@ -47,6 +47,9 @@ class goodMushrooms(pygame.sprite.Sprite):
         self.rect.y=y
         self.x=x
 
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+
 
 class badMushrooms(pygame.sprite.Sprite):
     def __init__(self,x,y,image_path, new_width, new_height):
@@ -56,6 +59,9 @@ class badMushrooms(pygame.sprite.Sprite):
         self.rect= self.image.get_rect()
         self.rect.y=y
         self.x=x
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
 class Bird(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, image_path, speed, new_width, new_height):
         super().__init__()
