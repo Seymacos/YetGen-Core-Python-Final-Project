@@ -5,8 +5,8 @@ import sys
 pygame.init()
 
 # Ekran boyutları
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Mario Game - Main Menu")
 
@@ -16,7 +16,7 @@ BLACK = (0, 0, 0)
 SKY_BLUE = (135, 206, 235)
 
 # Yazı tipi ayarları
-font_path = r"C:\Users\Bartu Vatansever\Desktop\oyunum\SuperMario256.ttf"
+font_path = r"SuperMario256.ttf"
 font = pygame.font.Font(font_path, 74)
 small_font = pygame.font.Font(font_path, 50)
 
@@ -25,7 +25,7 @@ menu_items = ["Start", "Options", "Quit"]
 selected_item = 0
 
 # Arka plan resmi
-background_path = r"C:\Users\Bartu Vatansever\Desktop\oyunum\mario_background.png"
+background_path = r"mario_background.png"
 background = pygame.image.load(background_path)
 background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -43,28 +43,40 @@ def draw_menu():
 
     pygame.display.flip()
 
+main_menu= True
+
+def event_handler():
+    global selected_item
+    global main_menu
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                selected_item = (selected_item + 1) % len(menu_items)
+            elif event.key == pygame.K_UP:
+                selected_item = (selected_item - 1) % len(menu_items)
+            elif event.key == pygame.K_RETURN:
+                if menu_items[selected_item] == "Start":
+                    print("Starting game...")
+                    main_menu=False
+                elif menu_items[selected_item] == "Options":
+                    print("Opening options...")
+                elif menu_items[selected_item] == "Quit":
+                    pygame.quit()
+                    sys.exit()
+
 def main():
     global selected_item
     while True:
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    selected_item = (selected_item + 1) % len(menu_items)
-                elif event.key == pygame.K_UP:
-                    selected_item = (selected_item - 1) % len(menu_items)
-                elif event.key == pygame.K_RETURN:
-                    if menu_items[selected_item] == "Start":
-                        print("Starting game...")
-                    elif menu_items[selected_item] == "Options":
-                        print("Opening options...")
-                    elif menu_items[selected_item] == "Quit":
-                        pygame.quit()
-                        sys.exit()
-
         draw_menu()
+        event_handler()        
 
 if __name__ == "__main__":
     main()
