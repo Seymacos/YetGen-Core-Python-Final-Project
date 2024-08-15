@@ -53,7 +53,7 @@ class World():
     def draw(self, screen, background_scroll):
  
         for tile in self.tile_list:
-            screen.blit(tile[0], (tile[1].x - background_scroll, tile[1].y))
+            screen.blit(tile[0], tile[1])
    
    #Çarpışmaları kontrol eder.
     def check_collision(self, rect):
