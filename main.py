@@ -6,34 +6,46 @@ from background_new import World
 from menu import Menu
 
 
+
+
 # Pygame'i başlat
 pygame.init()
+
+
 
 
 # Ekran boyutları
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-tile_size=40
+
+
+
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("************")
+
+
 
 
 # Renkler
 LIGHT_BLUE = (173, 216, 230)
 
 
+
+
 # background images
-# background images 
-sun= pygame.image.load("sun.png")
-backg= pygame.image.load("sky.png")
-exit= pygame.image.load("exit.png")
-exit_n= pygame.transform.scale(exit,(tile_size*2 ,tile_size))
-background_new=pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+sun = pygame.image.load("sun.png")
+backg = pygame.image.load("sky.png")
+backg_new = pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
+
 
 
 # ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
-#  # mainde grid_screen func çağırılacak
+tile_size = 40 # mainde grid_screen func çağırılacak
+
+
+
 
 
 
@@ -59,23 +71,34 @@ world_data = [
 ]
 
 
+
+
 world = World(world_data)
+
+
 
 
 # Mario karakterini başlat
 mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 
+
+
 # Düşmanları güncelle
 all_sprites = pygame.sprite.Group()
+
 
 # Menü
 menu = Menu(SCREEN_WIDTH, SCREEN_HEIGHT)
 in_menu = True
 
 
+
+
 # Oyun döngüsü
 clock = pygame.time.Clock()
+
+
 
 
 while True:
@@ -85,9 +108,13 @@ while True:
             sys.exit()
 
 
+
+
     if in_menu:
         # Menü ekranını çiz
         menu.draw_menu(screen)
+
+
 
 
         # Menü olaylarını yönet
@@ -104,10 +131,11 @@ while True:
         keys = pygame.key.get_pressed()
 
 
+
+
         # ekranı böl ve arka planı koy
         screen.blit(backg_new, (0, 0))
-    
-        world.draw(screen, background_scroll)
+
 
         # Mario'nun hareketini yönet
         mario.update(world, all_sprites)
@@ -115,26 +143,27 @@ while True:
         all_sprites.update()
 
 
+
+
         # Mario'yu ekrana çiz
         mario.draw(screen)
+
 
         world.draw(screen)
 
 
+
+
         # Düşmanları ekrana çiz
         all_sprites.draw(screen)
-                
-        # update the scroll position to make it continuous
-        background_scroll += scroll_speed
-        if background_scroll >= SCREEN_WIDTH:
-            background_scroll = 0
+               
+
 
         pygame.display.update()
+
+
 
 
     # Ekranı güncelle
     pygame.display.flip()
     clock.tick(60)
-
-
-
