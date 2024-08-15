@@ -1,31 +1,25 @@
+
 import pygame
 pygame.init()
 
-SCREEN_WIDTH= 1280
-SCREEN_HEIGHT= 720
-win= pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-pygame.display.set_caption("Pikseller's Game")
 
-tile_size= 40 
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
+tile_size=40
 
-# background images 
-sun= pygame.image.load("sun.png")
-backg= pygame.image.load("sky.png")
-exit= pygame.image.load("exit.png")
-exit_n= pygame.transform.scale(exit,(tile_size*2 ,tile_size))
-background_new=pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
-
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("************")
 
 # platform
-
+tile_size=40
 
 # ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
  # playerin büyüklüğüne ve hareketlerine göre parkur ve ekran yeniden şekillendirilebilir
 def grid_screen():
     for line in range(0,19):
-        pygame.draw.line(win,(255,255,255), (0,line* tile_size), (SCREEN_WIDTH, line* tile_size))
+        pygame.draw.line(screen,(255,255,255), (0,line* tile_size), (SCREEN_WIDTH, line* tile_size))
     for line in range(0,33):
-        pygame.draw.line(win,(255,255,255), (line*tile_size,0), (line*tile_size, SCREEN_HEIGHT))
+        pygame.draw.line(screen,(255,255,255), (line*tile_size,0), (line*tile_size, SCREEN_HEIGHT))
 
 class World():
     def __init__(self, data):
@@ -68,41 +62,10 @@ class World():
 
     def draw(self):
         for tile in self.tile_list:
-            win.blit(tile[0], tile[1])
-
-world_data = [
-    [7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,2,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
-    [1,0,0,0,0,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-]
+            screen.blit(tile[0], tile[1])
 
 
 
 
-world=World(world_data)
 
-run= True 
-while run:
-    for event in pygame.event.get():
-        if event.type== pygame.QUIT:
-            run= False
-    win.blit(background_new, (0,0))
-    win.blit(sun, (100,100))
-    grid_screen()
-    world.draw()
-    pygame.display.update()
+

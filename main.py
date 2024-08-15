@@ -13,7 +13,7 @@ pygame.init()
 # Ekran boyutları
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-
+tile_size=40
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("************")
@@ -24,13 +24,16 @@ LIGHT_BLUE = (173, 216, 230)
 
 
 # background images
-sun = pygame.image.load("sun.png")
-backg = pygame.image.load("sky.png")
-backg_new = pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
+# background images 
+sun= pygame.image.load("sun.png")
+backg= pygame.image.load("sky.png")
+exit= pygame.image.load("exit.png")
+exit_n= pygame.transform.scale(exit,(tile_size*2 ,tile_size))
+background_new=pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 # ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
-tile_size = 40 # mainde grid_screen func çağırılacak
+#  # mainde grid_screen func çağırılacak
 
 
 
@@ -110,9 +113,9 @@ while True:
 
 
         # ekranı böl ve arka planı koy
-        screen.blit(backg_new, (0, 0))
+        screen.blit(background_new, (0, 0))
     
-        world.draw(screen, background_scroll)
+        world.draw()
 
         # Mario'nun hareketini yönet
         mario.update(world)
@@ -126,11 +129,7 @@ while True:
 
         # Düşmanları ekrana çiz
         all_sprites.draw(screen)
-                
-        # update the scroll position to make it continuous
-        background_scroll += scroll_speed
-        if background_scroll >= SCREEN_WIDTH:
-            background_scroll = 0
+        
 
         pygame.display.update()
 
