@@ -64,11 +64,11 @@ class World():
          
                
                 if tile == 3:  # Yılan soldan sağa
-                    snake2 = Snake2(y=row_count * tile_size, width=tile_size, height=tile_size, image_path="snake.png", speed=3, screen_width=SCREEN_WIDTH, new_width=tile_size, new_height=tile_size)
+                    snake2 = Snake2(y=row_count * tile_size, width=tile_size, height=tile_size, image_path="snake2.png", speed=3, screen_width=SCREEN_WIDTH, new_width=tile_size, new_height=tile_size)
                     self.all_sprites_group.add(snake2)
 
                 if tile == 4:  # Yılan sağdan sola
-                    snake1 = Snake1(y=row_count * tile_size, width=tile_size, height=tile_size, image_path="snake2.png", speed=3, screen_width=SCREEN_WIDTH, new_width=tile_size, new_height=tile_size)
+                    snake1 = Snake1(y=row_count * tile_size, width=tile_size, height=tile_size, image_path="snake.png", speed=3, screen_width=SCREEN_WIDTH, new_width=tile_size, new_height=tile_size)
                     self.all_sprites_group.add(snake1)
 
                 if tile == 5:  # İyi mantar

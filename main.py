@@ -11,16 +11,16 @@ pygame.init()
 # Ekran boyutları
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-# oyun 
-game_over=0
-max_levels=3
-level=1
+game_over = 0
+max_levels = 3
+level = 1
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("************")
 
 # Renkler
 LIGHT_BLUE = (173, 216, 230)
+BLACK = (0, 0, 0)
 
 # background images
 sun = pygame.image.load("sun.png")
@@ -34,32 +34,30 @@ tile_size = 40 # mainde grid_screen func çağırılacak
 world_data = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,2,2,2,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,6,0,0,0,0,0,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,6,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,2,2,2,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,2,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,2,0,0,1],
-    [1,0,0,0,0,6,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
-    [1,0,0,0,5,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
+    [1,0,0,6,0,2,2,0,0,1,1,1,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
+
+# Dünya nesnesini oluştur
 world = World(world_data)
 
 # Mario karakterini başlat
 mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
-
-# Düşmanları güncelle
-all_sprites = pygame.sprite.Group()
-world = World(world_data)
 
 # Menü
 menu = Menu(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -67,6 +65,19 @@ in_menu = True
 
 # Oyun döngüsü
 clock = pygame.time.Clock()
+
+'''def draw_game_over():
+    font = pygame.font.Font(None, 74)
+    game_over_text = font.render('Oyun Bitti!', True, BLACK)
+    text_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    screen.blit(game_over_text, text_rect)
+'''
+def draw_game_over(screen):
+    font = pygame.font.Font(None, 74)  # Büyük bir yazı tipi oluştur
+    text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
+    text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    screen.blit(text, text_rect)
+
 
 while True:
     for event in pygame.event.get():
@@ -91,27 +102,39 @@ while True:
     else:
         keys = pygame.key.get_pressed()
 
-        # ekranı böl ve arka planı koy
+        # Ekranı böl ve arka planı koy
         screen.blit(backg_new, (0, 0))
 
         # Mario'nun hareketini yönet
-        mario.update(world, all_sprites)
-        all_sprites.update()
+        mario.update(world, world.all_sprites_group)
 
-        # Mario'yu ekrana çiz
-
+        # Ekranı güncelle
         world.draw(screen)
         mario.draw(screen)
         world.all_sprites_group.update()
+        world.all_sprites_group.draw(screen)
 
-        # Düşmanları ekrana çiz
-        all_sprites.draw(screen)
-        
-        # eğer player kaybettiyse:
+        if not mario.is_alive:
+            if not game_over:
+                game_over = True
+                game_over_start_time = pygame.time.get_ticks()  # Şu anki zamanı al
 
-        #eğer player kazandıysa:
+            # Mario öldüyse, oyunun bitişini işleyin
+            screen.fill(LIGHT_BLUE)  # Ekranı arka plan rengiyle doldur
+            draw_game_over(screen)
+            pygame.display.flip()
 
+            # 3 saniye boyunca bekle
+            current_time = pygame.time.get_ticks()
+            if current_time - game_over_start_time >= 3000:  # 3000 ms = 3 saniye
+                # Başlangıç ekranına dön
+                in_menu = True
+                game_over = False
+                mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)  # Mario'yu yeniden başlat
+                world = World(world_data)  # Dünya nesnesini yeniden oluştur
+        else:
+            game_over = False
 
     # Ekranı güncelle
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(60)      

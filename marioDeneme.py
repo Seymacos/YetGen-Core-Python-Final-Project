@@ -1,5 +1,24 @@
 import pygame
-
+world_data = [
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,2,2,2,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,6,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,2,2,2,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,2,0,0,1],
+    [1,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
+    [1,0,0,6,0,2,2,0,0,1,1,1,1,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+]
 # Mario karakteri sınıfı
 class Mario(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height):
@@ -20,7 +39,28 @@ class Mario(pygame.sprite.Sprite):
         self.velocity_x = 0
         self.move_speed = 5  # Yatay hareket hızı
         self.is_alive = True  # Mario'nun canlı olup olmadığını belirler
-        
+        self.world_data = world_data
+        # Mario'nun başlangıç konumunu belirle
+        self.find_starting_position()        
+
+
+    def find_starting_position(self):
+        tile_size = 40  # Eğer farklı bir tile boyutu kullanıyorsanız, burayı güncelleyin
+        rows = len(self.world_data)
+        cols = len(self.world_data[0])
+
+        # Ekranın sol alt köşesinden başlamayı hedefle
+        for x in range(0, cols):
+            for y in range(rows - 1, -1, -1):
+                # Mario'nun çimenli yerlerde olmamasını sağla
+                if self.world_data[y][x] == 0:
+                    self.rect.x = x * tile_size
+                    self.rect.y = y * tile_size
+                    return
+
+        # Eğer uygun bir yer bulunamazsa, ekranın sol alt köşesinde kal
+        self.rect.x = 0
+        self.rect.y = self.screen_height - self.rect.height
     def update(self, world, enemies):
         if not self.is_alive:
             return  # Eğer Mario ölmüşse, hiçbir işlem yapılmaz
