@@ -5,33 +5,18 @@ from marioDeneme import Mario
 from background_new import World
 from menu import Menu
 
-
-
-
 # Pygame'i başlat
 pygame.init()
-
-
-
 
 # Ekran boyutları
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
-
-
-
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("************")
 
-
-
-
 # Renkler
 LIGHT_BLUE = (173, 216, 230)
-
-
-
 
 # background images
 sun = pygame.image.load("sun.png")
@@ -39,15 +24,8 @@ backg = pygame.image.load("sky.png")
 backg_new = pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
-
-
 # ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
 tile_size = 40 # mainde grid_screen func çağırılacak
-
-
-
-
-
 
 world_data = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -56,50 +34,35 @@ world_data = [
     [1,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,6,0,0,0,0,0,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,2,2,2,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,2,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,2,0,0,1],
-    [1,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
-    [1,0,0,0,0,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,6,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
+    [1,0,0,0,5,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
-
-
-
 world = World(world_data)
-
-
-
 
 # Mario karakterini başlat
 mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
 
-
-
-
 # Düşmanları güncelle
 all_sprites = pygame.sprite.Group()
-
+world = World(world_data)
 
 # Menü
 menu = Menu(SCREEN_WIDTH, SCREEN_HEIGHT)
 in_menu = True
 
-
-
-
 # Oyun döngüsü
 clock = pygame.time.Clock()
-
-
-
 
 while True:
     for event in pygame.event.get():
@@ -107,15 +70,9 @@ while True:
             pygame.quit()
             sys.exit()
 
-
-
-
     if in_menu:
         # Menü ekranını çiz
         menu.draw_menu(screen)
-
-
-
 
         # Menü olaylarını yönet
         action = menu.handle_events()
@@ -130,39 +87,22 @@ while True:
     else:
         keys = pygame.key.get_pressed()
 
-
-
-
         # ekranı böl ve arka planı koy
         screen.blit(backg_new, (0, 0))
 
-
         # Mario'nun hareketini yönet
         mario.update(world, all_sprites)
-   
         all_sprites.update()
 
-
-
-
         # Mario'yu ekrana çiz
-        mario.draw(screen)
-
 
         world.draw(screen)
-
-
-
+        mario.draw(screen)
+        world.all_sprites_group.update()
 
         # Düşmanları ekrana çiz
         all_sprites.draw(screen)
                
-
-
-        pygame.display.update()
-
-
-
 
     # Ekranı güncelle
     pygame.display.flip()

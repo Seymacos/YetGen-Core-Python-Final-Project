@@ -45,7 +45,7 @@ class goodMushrooms(pygame.sprite.Sprite):
         self.image = pygame.transform.smoothscale(self.image, (new_width, new_height))
         self.rect= self.image.get_rect()
         self.rect.y=y
-        self.x=x
+        self.rect.x=x
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -58,7 +58,7 @@ class badMushrooms(pygame.sprite.Sprite):
         self.image = pygame.transform.smoothscale(self.image, (new_width, new_height))
         self.rect= self.image.get_rect()
         self.rect.y=y
-        self.x=x
+        self.rect.x=x
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
