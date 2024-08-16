@@ -1,7 +1,7 @@
 import pygame
 import sys
 from enemies import Snake1, Snake2, badMushrooms, goodMushrooms, Bird
-from marioDeneme import Mario
+from princessDeneme import Princess
 from background_new import World
 from menu import Menu
 
@@ -57,7 +57,7 @@ world_data = [
 world = World(world_data)
 
 # Mario karakterini başlat
-mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
+princess = Princess(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Menü
 menu = Menu(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -106,15 +106,15 @@ while True:
         screen.blit(backg_new, (0, 0))
 
         # Mario'nun hareketini yönet
-        mario.update(world, world.all_sprites_group)
+        princess.update(world, world.all_sprites_group)
 
         # Ekranı güncelle
         world.draw(screen)
-        mario.draw(screen)
+        princess.draw(screen)
         world.all_sprites_group.update()
         world.all_sprites_group.draw(screen)
 
-        if not mario.is_alive:
+        if not princess.is_alive:
             if not game_over:
                 game_over = True
                 game_over_start_time = pygame.time.get_ticks()  # Şu anki zamanı al
@@ -130,7 +130,7 @@ while True:
                 # Başlangıç ekranına dön
                 in_menu = True
                 game_over = False
-                mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)  # Mario'yu yeniden başlat
+                princess = Princess(SCREEN_WIDTH, SCREEN_HEIGHT)  # Mario'yu yeniden başlat
                 world = World(world_data)  # Dünya nesnesini yeniden oluştur
         else:
             game_over = False

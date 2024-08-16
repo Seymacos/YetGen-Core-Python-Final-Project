@@ -25,17 +25,21 @@ class Princess(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.image_right = pygame.image.load("princessRight.png")
+        self.image_right = pygame.transform.scale(self.image_right, (40, 80)) 
         self.image_left = pygame.image.load("princessLeft.png")
+        self.image_left = pygame.transform.scale(self.image_left, (40, 80)) 
         self.image_jump = pygame.image.load("princessJump.png")
-        self.image = self.image_right  # Başlangıçta sağa doğru bakan prenses
+        self.image_jump = pygame.transform.scale(self.image_jump, (40, 80)) 
+
+        self.image = self.image_right  # Başlangıçta sağ a doğru bakan prenses
         self.rect = self.image.get_rect()
         self.rect.x = self.screen_width // 2  # Prensesi ekranın ortasına yerleştir
         self.rect.y = self.screen_height - self.rect.height  # Prensesin başlangıç y pozisyonu
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.is_jumping = False
-        self.jump_height = 15  # Zıplama yüksekliği
-        self.jump_speed = 15
+        self.jump_height = 10  # Zıplama yüksekliği
+        self.jump_speed = 10
         self.gravity = 1  # Yerçekimi kuvveti
         self.velocity_y = 0
         self.velocity_x = 0
