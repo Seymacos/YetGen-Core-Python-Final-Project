@@ -106,9 +106,7 @@ class Mario(pygame.sprite.Sprite):
             self.is_alive = False
             print("Mario öldü!")  # Oyun sonu mesajı veya işlemi
 
-        if self.check_collision_with_exit(world_data):
-            self.world_data=world_data2
-            print("yeni level'a geçtiniz!!")  # Oyun sonu mesajı veya işlemi
+       
         # Oyuncunun koordinatları
         self.rect.x += dx
         self.rect.y += dy
