@@ -1,6 +1,6 @@
 import pygame
 import sys
-from enemies import Ghosts, Mushrooms,Bird
+from enemies import Ghosts, Mushrooms, Bird
 from marioDeneme import Mario
 from background_new import World
 from menu2 import Menu

@@ -5,7 +5,7 @@ class Ghosts(pygame.sprite.Sprite):
     def __init__(self, x, y, image_path, move_distance=40, speed=1):
         super().__init__()
         self.original_image = pygame.image.load(image_path) 
-        self.image = pygame.transform.scale(self.original_image, (80,40))#Boyutun ölçeklendirilmesi
+        self.image = pygame.transform.scale(self.original_image, (50,40))#Boyutun ölçeklendirilmesi
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -23,7 +23,7 @@ class Ghosts(pygame.sprite.Sprite):
         # Hareket mesafesine ulaştığında yönü değiştirir.
         if self.rect.x >= self.end_x or self.rect.x <= self.start_x:
             self.direction *= -1
-
+      
 
         # Güncellenmiş rect boyutlarını yeniden belirleyin
         self.rect = self.image.get_rect(topleft=self.rect.topleft)

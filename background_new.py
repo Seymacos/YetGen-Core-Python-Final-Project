@@ -2,7 +2,6 @@ import pygame
 from enemies import Ghosts, Mushrooms, Bird
 from pygame.locals import *
 
-
 pygame.init()
 
 SCREEN_WIDTH= 1280
@@ -32,7 +31,7 @@ class World():
         self.tile_list= []
         self.all_sprites_group = pygame.sprite.Group()  # Düşmanlar ve diğer sprite'lar için grup
         self.create_world()
-
+      
     def create_world(self):
         tile_size = 40
         dirt_img= pygame.image.load("dirt.png")
@@ -67,7 +66,7 @@ class World():
                        x=col_count * tile_size,
                        y=row_count * tile_size,
                        image_path="ghosts.png",
-                       move_distance=tile_size*16,  # 1 tile_size mesafede ileri geri
+                       move_distance=tile_size*17,  # 1 tile_size mesafede ileri geri
                        speed=3
                     )
                     self.all_sprites_group.add(ghosts)
@@ -102,16 +101,14 @@ class World():
                        speed=3
                     )
                     self.all_sprites_group.add(bird)
-                
+               
                 if tile==7: #çıkış kapısı
                     img= pygame.transform.scale(exit_n, (tile_size, tile_size*2))
                     img_rect= img.get_rect()
                     img_rect.x= col_count* tile_size
                     img_rect.y= row_count * tile_size
                     tile= (img, img_rect)
-                    self.tile_list.append(tile)
-                
-                   
+                    self.tile_list.append(tile)              
                 col_count+=1
             row_count+=1
 
