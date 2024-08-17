@@ -100,7 +100,7 @@ class Princess(pygame.sprite.Sprite):
         if key[pygame.K_SPACE] and not self.is_jumping:
             self.velocity_y = -self.jump_speed
             self.is_jumping = True
-            self.image = self.image_jump  # Zıplarken prensesin zıplama resmi gösterilir
+            self.image = self.image_right  # Zıplarken prensesin zıplama resmi gösterilir
 
         # Yerçekiminin düşmeye etkisi
         self.velocity_y += self.gravity
@@ -127,7 +127,7 @@ class Princess(pygame.sprite.Sprite):
             elif key[pygame.K_RIGHT]:
                 self.image = self.image_right
 
-
+#ÇARPIŞMA KONTROLÜ TILE'LARIN ÜSTÜNE ÇIKMASINA SEBEP OLAN BUG BURADA!!!
         # Çarpışma kontrolü
         for tile in world.tile_list:
             if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
@@ -183,4 +183,4 @@ class Princess(pygame.sprite.Sprite):
     
     def draw(self, screen):
         screen.blit(self.image, self.rect)
-        pygame.draw.rect(screen, (255, 255, 255), self.rect, 2)
+        pygame.draw.rect(screen, (173, 216, 230), self.rect, 2)
