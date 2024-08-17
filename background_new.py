@@ -1,6 +1,7 @@
 import pygame
 from enemies import Snake, Mushrooms, Bird
 from pygame.locals import *
+from exitClass import Exit
 
 pygame.init()
 
@@ -31,7 +32,7 @@ class World():
         self.tile_list= []
         self.all_sprites_group = pygame.sprite.Group()  # Düşmanlar ve diğer sprite'lar için grup
         self.create_world()
-      
+
     def create_world(self):
         tile_size = 40
         dirt_img= pygame.image.load("dirt.png")
@@ -101,14 +102,24 @@ class World():
                        speed=3
                     )
                     self.all_sprites_group.add(bird)
-               
+                """"
                 if tile==7: #çıkış kapısı
                     img= pygame.transform.scale(exit_n, (tile_size, tile_size*2))
                     img_rect= img.get_rect()
                     img_rect.x= col_count* tile_size
                     img_rect.y= row_count * tile_size
                     tile= (img, img_rect)
-                    self.tile_list.append(tile)              
+                    self.tile_list.append(tile)
+                """
+                if tile == 7:  #çıkış kapısı
+                    exit_gate= Exit(
+                        x=col_count * tile_size,  # x koordinatını col_count ile ayarla
+                        y=row_count * tile_size,  # y koordinatını row_count ile ayarla
+                        image_path="exit.png",
+                        new_width=tile_size,
+                        new_height=tile_size
+                    )
+                    self.all_sprites_group.add(exit_gate)            
                 col_count+=1
             row_count+=1
 
