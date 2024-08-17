@@ -1,6 +1,6 @@
 import pygame
 import sys
-from enemies import Snake, Mushrooms, Bird
+from enemies import Snake, Mushrooms,Bird
 from marioDeneme import Mario
 from background_new import World
 from menu2 import Menu
@@ -35,7 +35,7 @@ world_data = [
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,2,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,2,0,0,2,0,2,2,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -79,7 +79,7 @@ world = World(world_data)
 mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Menü
-menu = Menu(SCREEN_WIDTH, SCREEN_HEIGHT)
+menu = Menu(screen)
 
 in_menu = True
 
