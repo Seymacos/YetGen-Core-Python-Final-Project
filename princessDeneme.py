@@ -45,9 +45,9 @@ class Princess(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.image_right = pygame.image.load("princessRight.png")
-        self.image_right = pygame.transform.scale(self.image_right, (60, 100)) 
+        self.image_right = pygame.transform.scale(self.image_right, (60, 80)) 
         self.image_left = pygame.image.load("princessLeft.png")
-        self.image_left = pygame.transform.scale(self.image_left, (60, 100)) 
+        self.image_left = pygame.transform.scale(self.image_left, (60, 80)) 
 
 
         self.image = self.image_right  # Başlangıçta sağ a doğru bakan prenses
@@ -100,7 +100,7 @@ class Princess(pygame.sprite.Sprite):
         if key[pygame.K_SPACE] and not self.is_jumping:
             self.velocity_y = -self.jump_speed
             self.is_jumping = True
-            self.image = self.image_jump  # Zıplarken prensesin zıplama resmi gösterilir
+            self.image = self.image_right  # Zıplarken prensesin zıplama resmi gösterilir
 
         # Yerçekiminin düşmeye etkisi
         self.velocity_y += self.gravity
@@ -127,19 +127,43 @@ class Princess(pygame.sprite.Sprite):
             elif key[pygame.K_RIGHT]:
                 self.image = self.image_right
 
-
+#ÇARPIŞMA KONTROLÜ TILE'LARIN ÜSTÜNE ÇIKMASINA SEBEP OLAN BUG BURADA!!!
         # Çarpışma kontrolü
-        for tile in world.tile_list:
-            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
-                dx = 0  # Yatay hareket durdurulur
+    #    for tile in world.tile_list:
+    #        if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
+    #            dx = 0  # Yatay hareket durdurulur
 
-            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
-                if self.velocity_y < 0:
-                    dy = tile[1].bottom - self.rect.top  # Yukarıya doğru çarpışma
-                elif self.velocity_y >= 0:
-                    dy = tile[1].top - self.rect.bottom  # Aşağıya doğru çarpışma
-                    self.is_jumping = False
-                    self.velocity_y = 0
+    #        if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
+    #            if self.velocity_y < 0:
+    #                dy = tile[1].bottom - self.rect.top  # Yukarıya doğru çarpışma
+    #            elif self.velocity_y >= 0:
+    #                dy = tile[1].top - self.rect.bottom  # Aşağıya doğru çarpışma
+    #                self.is_jumping = False
+    #                self.velocity_y = 0 
+
+    # Çarpışma kontrolü
+for tile in world.tile_list:
+    # Yatay çarpışma kontrolü (sağa/sola hareket)
+    if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
+        if dx > 0:  # Sağa doğru hareket
+            dx = tile[1].left - self.rect.right
+        elif dx < 0:  # Sola doğru hareket
+            dx = tile[1].right - self.rect.left
+
+    # Dikey çarpışma kontrolü (yukarı/aşağı hareket)
+    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
+        if dy > 0:  # Aşağıya doğru hareket
+            dy = tile[1].top - self.rect.bottom
+            self.is_jumping = False  # Zıplama sona erer
+            self.velocity_y = 0  # Dikey hız sıfırlanır
+        elif dy < 0:  # Yukarıya doğru hareket
+            dy = tile[1].bottom - self.rect.top
+            self.velocity_y = 0  # Dikey hız sıfırlanır
+
+# Karakterin pozisyonunu güncelle
+self.rect.x += dx
+self.rect.y += dy
+
 
         # Çarpışma kontrolü (düşmanlarla)
         if self.check_collision_with_enemies(enemies):
@@ -183,4 +207,4 @@ class Princess(pygame.sprite.Sprite):
     
     def draw(self, screen):
         screen.blit(self.image, self.rect)
-        pygame.draw.rect(screen, (255, 255, 255), self.rect, 2)
+        pygame.draw.rect(screen, (173, 216, 230), self.rect, 2)
