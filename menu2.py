@@ -29,7 +29,7 @@ class Menu:
         self.exit_img = pygame.image.load('exitGame.png')
         
         # Load new image for save button
-        self.save_img = pygame.image.load('save.png')  # Use your new save button image
+        self.save_img = pygame.image.load('saveButton.png')  # Use your new save button image
 
         # Initialize sounds
         self.start_music = pygame.mixer.Sound('startMusic.wav')
@@ -54,7 +54,6 @@ class Menu:
         self.box_color = pygame.Color(255, 219, 88)
         self.prompt_text = self.font.render("", True, (255,255, 255))
         self.prompt_text = self.font.render("Enter your username", True, (255, 255, 255))
-        self.save_prompt_text = self.font.render("save", True, (255, 255, 255))
         self.saved_message = None
         self.error_message = None
 
@@ -134,7 +133,6 @@ class Menu:
         pygame.draw.rect(self.screen, self.color, self.input_box, 2)
         self.screen.blit(self.txt_surface, (self.input_box.x + 10, self.input_box.y + 10))
         self.screen.blit(self.prompt_text, (self.input_box.x, self.input_box.y - 30))
-        self.screen.blit(self.save_prompt_text, (self.save_button.rect.x + 10, self.save_button.rect.y + 10))
 
         if self.saved_message:
             saved_message_surface = self.font.render(self.saved_message, True, (0, 255, 0))
