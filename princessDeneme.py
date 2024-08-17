@@ -45,11 +45,10 @@ class Princess(pygame.sprite.Sprite):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.image_right = pygame.image.load("princessRight.png")
-        self.image_right = pygame.transform.scale(self.image_right, (40, 80)) 
+        self.image_right = pygame.transform.scale(self.image_right, (60, 100)) 
         self.image_left = pygame.image.load("princessLeft.png")
-        self.image_left = pygame.transform.scale(self.image_left, (40, 80)) 
-        self.image_jump = pygame.image.load("princessJump.png")
-        self.image_jump = pygame.transform.scale(self.image_jump, (40, 80)) 
+        self.image_left = pygame.transform.scale(self.image_left, (60, 100)) 
+
 
         self.image = self.image_right  # Başlangıçta sağ a doğru bakan prenses
         self.rect = self.image.get_rect()
