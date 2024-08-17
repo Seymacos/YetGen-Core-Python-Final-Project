@@ -47,5 +47,3 @@ class Menu:
                         sys.exit()
         return "menu"
 
-class Button():
-    

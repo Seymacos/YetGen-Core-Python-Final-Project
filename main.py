@@ -80,6 +80,7 @@ mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Menü
 menu = Menu(SCREEN_WIDTH, SCREEN_HEIGHT)
+
 in_menu = True
 
 # Oyun döngüsü

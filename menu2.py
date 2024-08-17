@@ -10,6 +10,15 @@ class Menu():
         self.screen_widht= screen_width
         self.background = pygame.image.load("mario_background.png")
         self.background = pygame.transform.scale(self.background, (screen_width, screen_height))
+        self.sound_on_img= pygame.image.load('soundOn.png')
+        self.sound_off_img= pygame.image.load('soundOff.png')
+        self.start_img= pygame.image.load('start.png')
+        self.exit_img = pygame.image.load('exitGame.png')
+        self.start_music = pygame.mixer.Sound('startMusic.wav')
+# muzik
+    def start_music():
+        start_music_channel = start_music.play(-1)  # Sonsuz döngüde çalması için -1 kullanılır
+        sound_on = True
 # Ekran boyutlarını belirle
 screen_width = 1280
 screen_height = 720
@@ -28,8 +37,7 @@ exit_img = pygame.image.load('exitGame.png')
 start_music = pygame.mixer.Sound('startMusic.wav')
 
 # Başlangıçta müzik çalsın
-start_music_channel = start_music.play(-1)  # Sonsuz döngüde çalması için -1 kullanılır
-sound_on = True
+
 
 # Tuşları oluştur
 start_button = pygame.Rect(500, 200, 280, 70)
