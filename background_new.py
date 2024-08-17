@@ -1,5 +1,5 @@
 import pygame
-from enemies import Snake, Mushrooms, Bird
+from enemies import Ghosts, Mushrooms, Bird
 from pygame.locals import *
 
 pygame.init()
@@ -62,14 +62,14 @@ class World():
                     self.tile_list.append(tile) 
          
                 if tile == 3:
-                    snake = Snake(
+                    ghosts = Ghosts(
                        x=col_count * tile_size,
                        y=row_count * tile_size,
-                       image_path="snake.png",
-                       move_distance=tile_size*17,  # 1 tile_size mesafede ileri geri
+                       image_path="ghosts.png",
+                       move_distance=tile_size*16,  # 1 tile_size mesafede ileri geri
                        speed=3
                     )
-                    self.all_sprites_group.add(snake)
+                    self.all_sprites_group.add(ghosts)
 
 
                 if tile == 4:
