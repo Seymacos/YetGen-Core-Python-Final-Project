@@ -1,7 +1,7 @@
 import pygame
 import sys
-from enemies import Snake, Mushrooms,Bird
-from princessDeneme import Princess
+from enemies import Ghosts, Mushrooms,Bird
+from princessDenemÇarpışmaKontrol import Princess
 from background_new import World
 from menu2 import Menu
 
