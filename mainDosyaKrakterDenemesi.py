@@ -92,11 +92,19 @@ clock = pygame.time.Clock()
     text_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
     screen.blit(game_over_text, text_rect)
 '''
+# def draw_game_over(screen):
+   # font = pygame.font.Font(None, 74)  # Büyük bir yazı tipi oluştur
+   # text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
+    #text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+   # screen.blit(text, text_rect)
+
 def draw_game_over(screen):
-    font = pygame.font.Font(None, 74)  # Büyük bir yazı tipi oluştur
-    text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
-    text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-    screen.blit(text, text_rect)
+    # oyunBitti.jpg resmini yükle
+    game_over_image = pygame.image.load('oyunBitti.jpg')
+    # Resmi ekranın ortasına yerleştir
+    image_rect = game_over_image.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    # Resmi ekrana çiz
+    screen.blit(game_over_image, image_rect)
 
 
 while True:
