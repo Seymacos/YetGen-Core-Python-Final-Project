@@ -172,13 +172,16 @@ class Princess(pygame.sprite.Sprite):
                 return True
         return False
 
-    def check_collision_with_exit(self,world_data):
-        for block in world_data:
-            if block==7:
-                if pygame.sprite.collide_rect(self,block):
-                    return True
+    def check_collision_with_exit(self, world_data): 
+        tile_size = 40  #
+        for row in range(len(world_data)):
+            for col in range(len(world_data[row])):
+                if world_data[row][col] == 7:  # Çıkış olarak işaretlediğiniz değer (örneğin, 7)
+                    exit_rect = pygame.Rect(col * tile_size, row * tile_size, tile_size, tile_size)
+                    if self.rect.colliderect(exit_rect):
+                        return True
         return False
-
+    
     def draw(self, screen):
         screen.blit(self.image, self.rect)
         pygame.draw.rect(screen, (255, 255, 255), self.rect, 2)
