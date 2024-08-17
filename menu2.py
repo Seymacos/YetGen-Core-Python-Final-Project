@@ -4,6 +4,12 @@ import sys
 # Pygame başlat
 pygame.init()
 
+class Menu():
+    def __init__(self,screen_height,screen_width):
+        self.screen_height=screen_height
+        self.screen_widht= screen_width
+        self.background = pygame.image.load("mario_background.png")
+        self.background = pygame.transform.scale(self.background, (screen_width, screen_height))
 # Ekran boyutlarını belirle
 screen_width = 1280
 screen_height = 720
@@ -13,7 +19,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Giriş Ekranı")
 
 # Arka plan, ses, ve tuş görsellerini yükle
-background = pygame.image.load('background.jpg')
+background = pygame.image.load('mario_background.png')
+backGround=pygame.transform.scale(background,(screen_width,screen_height))
 sound_on_img = pygame.image.load('soundOn.png')
 sound_off_img = pygame.image.load('soundOff.png')
 start_img = pygame.image.load('start.png')
@@ -26,9 +33,9 @@ sound_on = True
 
 # Tuşları oluştur
 start_button = pygame.Rect(500, 200, 280, 70)
-exit_button = pygame.Rect(500, 300, 280, 70)
-sound_on_button = pygame.Rect(500, 400, 280, 70)
-sound_off_button = pygame.Rect(500, 500, 280, 70)
+exit_button = pygame.Rect(480, 400, 280, 70)
+sound_on_button = pygame.Rect(1000, 45, 280, 70)
+sound_off_button = pygame.Rect(1100, 50, 280, 70)
 
 # Ana döngü
 while True:
@@ -51,12 +58,12 @@ while True:
                 sound_on = False
 
     # Arka planı çiz
-    screen.blit(background, (0, 0))
+    screen.blit(backGround, (0, 0))
 
     # Tuşları çiz
     screen.blit(start_img, (500, 200))
-    screen.blit(exit_img, (500, 300))
-    screen.blit(sound_on_img if sound_on else sound_off_img, (500, 400))
-
+    screen.blit(exit_img, (480, 400))
+    screen.blit(sound_on_img, (1000, 45))
+    screen.blit(sound_off_img, (1100, 50))
     pygame.display.update()
 

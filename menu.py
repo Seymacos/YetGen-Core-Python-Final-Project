@@ -46,3 +46,6 @@ class Menu:
                         pygame.quit()
                         sys.exit()
         return "menu"
+
+class Button():
+    
