@@ -75,6 +75,8 @@ def draw_game_over(screen):
         text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
         text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
         screen.blit(text, text_rect)
+   
+    
     except Exception as e:
         print(f"Game over yazısı çizilirken bir hata oluştu: {e}")
 
