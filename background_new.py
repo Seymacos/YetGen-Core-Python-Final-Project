@@ -1,7 +1,7 @@
 import pygame
 from enemies import Ghosts, Mushrooms, Bird
 from pygame.locals import *
-from exitClass import Exit
+
 
 pygame.init()
 
@@ -102,7 +102,7 @@ class World():
                        speed=3
                     )
                     self.all_sprites_group.add(bird)
-                """"
+                
                 if tile==7: #çıkış kapısı
                     img= pygame.transform.scale(exit_n, (tile_size, tile_size*2))
                     img_rect= img.get_rect()
@@ -110,16 +110,8 @@ class World():
                     img_rect.y= row_count * tile_size
                     tile= (img, img_rect)
                     self.tile_list.append(tile)
-                """
-                if tile == 7:  #çıkış kapısı
-                    exit_gate= Exit(
-                        x=col_count * tile_size,  # x koordinatını col_count ile ayarla
-                        y=row_count * tile_size,  # y koordinatını row_count ile ayarla
-                        image_path="exit.png",
-                        new_width=tile_size,
-                        new_height=tile_size
-                    )
-                    self.all_sprites_group.add(exit_gate)            
+                
+                   
                 col_count+=1
             row_count+=1
 
