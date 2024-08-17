@@ -153,6 +153,14 @@ while True:
                 world = World(world_data)  # Dünya nesnesini yeniden oluştur
         else:
             game_over = False
+            
+        if mario.check_collision_with_exit(world_data):
+            world_data = world_data2  # Yeni seviyeyi yükleyin
+            world = World(world_data)  # Yeni dünya nesnesini oluşturun
+            mario.rect.x = 0  # Mario'yu yeni seviyenin başlangıç noktasına yerleştirin
+            mario.rect.y = mario.screen_height - mario.rect.height
+            print("Yeni seviyeye geçtiniz!")
+        
 
     # Ekranı güncelle
     pygame.display.flip()
