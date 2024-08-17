@@ -69,16 +69,24 @@ in_menu = True
 # Oyun döngüsü
 clock = pygame.time.Clock()
 
+#def draw_game_over(screen):
+#    try:
+#        font = pygame.font.Font(None, 74)  # Büyük bir yazı tipi oluştur
+#        text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
+#        text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+#        screen.blit(text, text_rect)
+
 def draw_game_over(screen):
-    try:
-        font = pygame.font.Font(None, 74)  # Büyük bir yazı tipi oluştur
-        text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
-        text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-        screen.blit(text, text_rect)
-   
+    # oyunBitti.jpg resmini yükle
+    game_over_image = pygame.image.load('oyunBitti.jpg')
+    # Resmi ekranın ortasına yerleştir
+    image_rect = game_over_image.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+    # Resmi ekrana çiz
+    screen.blit(game_over_image, image_rect)
+
     
-    except Exception as e:
-        print(f"Game over yazısı çizilirken bir hata oluştu: {e}")
+##except Exception as e:
+#        print(f"Game over yazısı çizilirken bir hata oluştu: {e}")
 
 while True:
     for event in pygame.event.get():
