@@ -66,7 +66,7 @@ class World():
                        x=col_count * tile_size,
                        y=row_count * tile_size,
                        image_path="ghosts.png",
-                       move_distance=tile_size*17,  # 1 tile_size mesafede ileri geri
+                       move_distance=tile_size*15,  # 1 tile_size mesafede ileri geri
                        speed=3
                     )
                     self.all_sprites_group.add(ghosts)

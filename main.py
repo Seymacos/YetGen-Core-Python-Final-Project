@@ -1,9 +1,9 @@
 import pygame
 import sys
 from enemies import Ghosts, Mushrooms, Bird
-from marioDeneme import Mario
-from background_new import World
-from menu2 import Menu
+from character import Mario
+from background import World
+from menu import Menu
 
 # Pygame'i başlat
 try:

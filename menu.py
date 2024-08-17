@@ -89,7 +89,7 @@ class Menu:
                     except IOError as e:
                         self.saved_message = f"Kullanıcı adı kaydedilemedi: {e}"
                 elif self.save_button.is_clicked(event.pos):
-                    self.error_message = "Enter your username!"
+                    self.error_message = "Enter a username!"
                     self.saved_message = None
                 if self.input_box.collidepoint(event.pos):
                     self.active = not self.active
@@ -102,7 +102,7 @@ class Menu:
                 if self.active:
                     if event.key == pygame.K_RETURN:
                         if not self.text:
-                            self.error_message = "Enter your username!"
+                            self.error_message = "Enter a valid username!"
                         else:
                             self.error_message = None
                             self.text = ''
@@ -136,9 +136,9 @@ class Menu:
 
         if self.saved_message:
             saved_message_surface = self.font.render(self.saved_message, True, (0, 255, 0))
-            self.screen.blit(saved_message_surface, (self.screen_width // 2 - saved_message_surface.get_width() // 2, self.screen_height // 2 + 50))
+            self.screen.blit(saved_message_surface, (self.screen_width // 2 - saved_message_surface.get_width() // 2, self.screen_height // 2))
         if self.error_message:
             error_message_surface = self.font.render(self.error_message, True, (255, 0, 0))
-            self.screen.blit(error_message_surface, (self.screen_width // 2 - error_message_surface.get_width() // 2, self.screen_height // 2 - 50))
+            self.screen.blit(error_message_surface, (self.screen_width // 2 - error_message_surface.get_width() // 2, self.screen_height // 2))
 
         pygame.display.update()
