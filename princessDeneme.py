@@ -129,21 +129,21 @@ class Princess(pygame.sprite.Sprite):
 
 #ÇARPIŞMA KONTROLÜ TILE'LARIN ÜSTÜNE ÇIKMASINA SEBEP OLAN BUG BURADA!!!
         # Çarpışma kontrolü
-       for tile in world.tile_list:
-    if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
-        dx = 0  # Yatay hareket durdurulur
-    
-    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
-        dy = 0  # Dikey hareket durdurulur
-
-
+        for tile in world.tile_list:
+            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
+                dx = 0
             if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
-                if self.velocity_y < 0:
-                    dy = tile[1].bottom - self.rect.top  # Yukarıya doğru çarpışma
-                elif self.velocity_y >= 0:
-                    dy = tile[1].top - self.rect.bottom  # Aşağıya doğru çarpışma
-                    self.is_jumping = False
-                    self.velocity_y = 0 
+                dy = 0
+
+
+
+    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
+        if self.velocity_y < 0:
+            dy = tile[1].bottom - self.rect.top  # Yukarıya doğru çarpışma
+        elif self.velocity_y >= 0:
+            dy = tile[1].top - self.rect.bottom  # Aşağıya doğru çarpışma
+                self.is_jumping = False
+                self.velocity_y = 0 
 
 
 
