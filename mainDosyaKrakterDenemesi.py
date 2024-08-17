@@ -1,12 +1,16 @@
 import pygame
 import sys
 from enemies import Ghosts, Mushrooms,Bird
-from princessDenemÇarpışmaKontrol import Princess
+from princessDeneme import Princess
 from background_new import World
 from menu2 import Menu
 
 # Pygame'i başlat
-pygame.init()
+try:
+    pygame.init()
+except Exception as e:
+    print(f"Pygame başlatılırken bir hata oluştu: {e}")
+    sys.exit()
 
 # Ekran boyutları
 SCREEN_WIDTH = 1280

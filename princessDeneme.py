@@ -129,42 +129,22 @@ class Princess(pygame.sprite.Sprite):
 
 #ÇARPIŞMA KONTROLÜ TILE'LARIN ÜSTÜNE ÇIKMASINA SEBEP OLAN BUG BURADA!!!
         # Çarpışma kontrolü
-#        for tile in world.tile_list:
-#            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
-#                dx = 0  # Yatay hareket durdurulur
+       for tile in world.tile_list:
+    if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
+        dx = 0  # Yatay hareket durdurulur
+    
+    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
+        dy = 0  # Dikey hareket durdurulur
 
-#            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
-#                if self.velocity_y < 0:
-#                    dy = tile[1].bottom - self.rect.top  # Yukarıya doğru çarpışma
-#                elif self.velocity_y >= 0:
-#                    dy = tile[1].top - self.rect.bottom  # Aşağıya doğru çarpışma
-#                    self.is_jumping = False
-#                    self.velocity_y = 0 
 
- # yeni kod deneme
-         # Collision detection and handling
-        for tile in world.tile_list:
-            # Check for horizontal collision
-            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.rect.width, self.rect.height):
-                if dx > 0:  # Moving right
-                    self.rect.right = tile[1].left
-                elif dx < 0:  # Moving left
-                    self.rect.left = tile[1].right
-                dx = 0  # Stop horizontal movement
-
-            # Check for vertical collision
             if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.rect.width, self.rect.height):
-                if dy > 0:  # Falling
-                    self.rect.bottom = tile[1].top
+                if self.velocity_y < 0:
+                    dy = tile[1].bottom - self.rect.top  # Yukarıya doğru çarpışma
+                elif self.velocity_y >= 0:
+                    dy = tile[1].top - self.rect.bottom  # Aşağıya doğru çarpışma
                     self.is_jumping = False
-                elif dy < 0:  # Jumping up
-                    self.rect.top = tile[1].bottom
-                dy = 0  # Stop vertical movement
+                    self.velocity_y = 0 
 
-        # After adjusting for collisions, update the actual position
-        self.rect.x += dx
-        self.rect.y += dy
-                   
 
 
 
