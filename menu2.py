@@ -13,12 +13,11 @@ class Button:
     def is_clicked(self, pos):
         return self.rect.collidepoint(pos)
 
-class Menu:
-    def __init__(self, screen):
-        self.screen = screen
-        self.font = pygame.font.Font(None, 36)
-        self.screen_height = screen.get_height()
-        self.screen_width = screen.get_width()
+class Menu():
+    def __init__(self,screen):
+        self.screen=screen
+        self.screen_height=screen.get_height()
+        self.screen_width= screen.get_width()
         self.background = pygame.image.load("mario_background.png")
         self.background = pygame.transform.scale(self.background, (self.screen_width, self.screen_height))
         
@@ -35,85 +34,32 @@ class Menu:
         self.start_music = pygame.mixer.Sound('startMusic.wav')
         self.start_music_channel = self.start_music.play(-1)
         self.sound_on = True
+        #buttons
+        self.start_button = pygame.Rect(500, 200, 280, 70)
+        self.exit_button = pygame.Rect(480, 400, 280, 70)
+        self.sound_on_button = pygame.Rect(1000, 45, 280, 70)
+        self.sound_off_button = pygame.Rect(1100, 50, 280, 70)
 
-        # Initialize buttons with images
-        self.start_button = Button(500, 200, 280, 70, 'start.png')
-        self.exit_button = Button(480, 400, 280, 70, 'exitGame.png')
-        self.sound_on_button = Button(1000, 45, 280, 70, 'soundOn.png')
-        self.sound_off_button = Button(1100, 50, 280, 70, 'soundOff.png')
-        self.save_button = Button(100, 200, 280, 70, 'save.png')  # Use new save button image
-
-        # Input box setup
-        self.input_box = pygame.Rect(100, 100, 300, 50)
-        self.color_inactive = pygame.Color("blue")
-        self.color_active = pygame.Color('dodgerblue2')
-        self.color = self.color_inactive
-        self.active = False
-        self.text = ''
-        self.txt_surface = self.font.render(self.text, True, self.color)
-        self.box_color = pygame.Color(255, 219, 88)
-        self.prompt_text = self.font.render("Kullanıcı adınızı giriniz:", True, (0, 0, 0))
-        self.save_prompt_text = self.font.render("Kaydet", True, (0, 0, 0))
-        self.saved_message = None
-        self.error_message = None
-
-    def menu_events(self):
+    def menu_events(self): # menüdeki hareketlerin toplandığı fonksiyon. 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if self.start_button.is_clicked(event.pos):
-                    if not self.text:
-                        self.error_message = "Kullanıcı adı giriniz!"
-                        self.saved_message = None
-                    else:
-                        self.error_message = None
-                        self.saved_message = None
-                        return "start"
-                if self.exit_button.is_clicked(event.pos):
+                if self.start_button.collidepoint(event.pos):
+                    # Ana oyunu başlatmak için döngüden çıkın
+                    return "start"
+                if self.exit_button.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
-                if self.sound_on_button.is_clicked(event.pos) and not self.sound_on:
+                if self.sound_on_button.collidepoint(event.pos) and not self.sound_on:
                     self.start_music_channel.unpause()
                     self.sound_on = True
                 if self.sound_off_button.is_clicked(event.pos) and self.sound_on:
                     self.start_music_channel.pause()
                     self.sound_on = False
-                if self.save_button.is_clicked(event.pos) and self.text:
-                    try:
-                        with open("username.txt", "w") as f:
-                            f.write(self.text)
-                        self.saved_message = "Kullanıcı adı kaydedildi!"
-                        self.error_message = None
-                    except IOError as e:
-                        self.saved_message = f"Kullanıcı adı kaydedilemedi: {e}"
-                elif self.save_button.is_clicked(event.pos):
-                    self.error_message = "Kullanıcı adı giriniz!"
-                    self.saved_message = None
-                if self.input_box.collidepoint(event.pos):
-                    self.active = not self.active
-                    self.error_message = None  # Clear error message when focusing on the input box
-                else:
-                    self.active = False
-                self.color = self.color_active if self.active else self.color_inactive
-            
-            if event.type == pygame.KEYDOWN:
-                if self.active:
-                    if event.key == pygame.K_RETURN:
-                        if not self.text:
-                            self.error_message = "Kullanıcı adı giriniz!"
-                        else:
-                            self.error_message = None
-                            self.text = ''
-                    elif event.key == pygame.K_BACKSPACE:
-                        self.text = self.text[:-1]
-                    else:
-                        self.text += event.unicode
-                    self.txt_surface = self.font.render(self.text, True, self.color)
+            return None
         
-        return None
-
     def draw(self):
         self.screen.blit(self.background, (0, 0))
         self.screen.blit(self.start_img, (500, 200))

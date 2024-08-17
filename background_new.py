@@ -19,7 +19,7 @@ background_new=pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
  # playerin büyüklüğüne ve hareketlerine göre parkur ve ekran yeniden şekillendirilebilir
-def grid_screen(screen):
+def grid_screen(screen): # ekranı bölüyor, ilk etapta oyunu yazmayı kolaylaştırır
     for line in range(0,19):
         pygame.draw.line(screen, (255,255,255), (0, line * tile_size), (SCREEN_WIDTH, line * tile_size))
     for line in range(0,33):
@@ -39,8 +39,9 @@ class World():
         exit= pygame.image.load("exit.png")
         exit_n= pygame.transform.scale(exit,(tile_size*2 ,tile_size))
 
+        #world_data değişkeni üzerinde gezer, sayılara denk gelen png'leri ekrana yerleştirir
         row_count=0
-        for row in self.data:
+        for row in self.data:  
             col_count=0
             for tile in row:
                 #Toprak
@@ -91,7 +92,7 @@ class World():
                     )
                     self.all_sprites_group.add(bad_mushroom)
                
-                if tile == 6:
+                if tile == 6: # kuş 
                     bird = Bird(
                        x=col_count * tile_size,
                        y=row_count * tile_size,
@@ -101,7 +102,7 @@ class World():
                     )
                     self.all_sprites_group.add(bird)
                
-                if tile==7:
+                if tile==7: #çıkış kapısı
                     img= pygame.transform.scale(exit_n, (tile_size, tile_size*2))
                     img_rect= img.get_rect()
                     img_rect.x= col_count* tile_size
@@ -111,7 +112,7 @@ class World():
                 col_count+=1
             row_count+=1
 
-    def draw(self,screen):
+    def draw(self,screen): # main'de çağrılır 
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
         self.all_sprites_group.draw(screen)  # Düşmanları da çizer
