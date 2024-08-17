@@ -2,9 +2,10 @@ import pygame
 
 # Yılan sınıfı Sağdan sola doğru
 class Snake1(pygame.sprite.Sprite):
-    def __init__(self, x, y, image_path, move_distance=40, speed=2):
+    def __init__(self, x, y, image_path, move_distance=40, speed=1):
         super().__init__()
-        self.image = pygame.image.load(image_path)
+        self.original_image = pygame.image.load(image_path)
+        self.image = pygame.transform.scale(self.original_image, (50,40))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -22,30 +23,19 @@ class Snake1(pygame.sprite.Sprite):
         # Hareket mesafesine ulaştığında yönü değiştir
         if self.rect.x >= self.end_x or self.rect.x <= self.start_x:
             self.direction *= -1
+        # Görüntüyü döndür
+        if self.direction == 1:
+            # Sağ yönünde hareket ederken
+            self.image = pygame.transform.flip(self.image, False, False)
+        else:
+            # Sol yönünde hareket ederken
+            self.image = pygame.transform.flip(self.image, True, False)
+
+        # Güncellenmiş rect boyutlarını yeniden belirleyin
+        self.rect = self.image.get_rect(topleft=self.rect.topleft)
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
-
-
-# Yılan sınıfı Soldan sağa doğru
-class Snake2(pygame.sprite.Sprite):
-    def __init__(self, y, width, height, image_path, speed, screen_width, new_width, new_height):
-        super().__init__()
-       
-        self.image = pygame.image.load(image_path)
-        self.image = pygame.transform.smoothscale(self.image, (new_width, new_height))
-        self.rect = self.image.get_rect()
-        self.rect.y = y
-        self.rect.x = 0 #Yılan ekranın sağ tarafından başlayacak
-        self.x_change = speed #Yılanın hızı
-        self.y_change = 0
-
-    def update(self):
-        self.rect.x += self.x_change
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
 
 class goodMushrooms(pygame.sprite.Sprite):
     def __init__(self,x,y,image_path, new_width, new_height):

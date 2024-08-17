@@ -69,14 +69,11 @@ class World():
                        x=col_count * tile_size,
                        y=row_count * tile_size,
                        image_path="snake.png",
-                       move_distance=tile_size,  # 1 tile_size mesafede ileri geri
+                       move_distance=tile_size*17,  # 1 tile_size mesafede ileri geri
                        speed=3
                     )
                     self.all_sprites_group.add(snake)
 
-                if tile == 4:  # Yılan sağdan sola
-                    snake1 = Snake1(y=row_count * tile_size, width=tile_size, height=tile_size, image_path="snake.png", speed=3, screen_width=SCREEN_WIDTH, new_width=tile_size, new_height=tile_size)
-                    self.all_sprites_group.add(snake1)
 
                 if tile == 5:  # İyi mantar
                     good_mushroom = goodMushrooms(x=col_count * tile_size, y=row_count * tile_size, image_path="Mushrooms.png", new_width=tile_size, new_height=tile_size)
