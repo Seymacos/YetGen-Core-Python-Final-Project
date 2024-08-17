@@ -3,7 +3,7 @@ import sys
 from enemies import Snake, Mushrooms, Bird
 from marioDeneme import Mario
 from background_new import World
-from menu import Menu
+from menu2 import Menu
 
 # Pygame'i başlat
 pygame.init()
@@ -80,6 +80,7 @@ mario = Mario(SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Menü
 menu = Menu(SCREEN_WIDTH, SCREEN_HEIGHT)
+
 in_menu = True
 
 # Oyun döngüsü
@@ -106,10 +107,10 @@ while True:
 
     if in_menu:
         # Menü ekranını çiz
-        menu.draw_menu(screen)
+        menu.draw()
 
         # Menü olaylarını yönet
-        action = menu.handle_events()
+        action = menu.menu_events()
         if action == "start":
             in_menu = False
         elif action == "options":
