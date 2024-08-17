@@ -52,8 +52,9 @@ class Menu:
         self.text = ''
         self.txt_surface = self.font.render(self.text, True, self.color)
         self.box_color = pygame.Color(255, 219, 88)
-        self.prompt_text = self.font.render("Enter your username", True, (255,255, 255))
-        self.save_prompt_text = self.font.render("Save", True, (255, 255, 255))
+        self.prompt_text = self.font.render("", True, (255,255, 255))
+        self.prompt_text = self.font.render("Enter your username", True, (255, 255, 255))
+        self.save_prompt_text = self.font.render("save", True, (255, 255, 255))
         self.saved_message = None
         self.error_message = None
 
@@ -93,7 +94,7 @@ class Menu:
                     self.saved_message = None
                 if self.input_box.collidepoint(event.pos):
                     self.active = not self.active
-                    self.error_message = None  
+                    self.error_message = None  # Clear error message when focusing on the input box
                 else:
                     self.active = False
                 self.color = self.color_active if self.active else self.color_inactive
