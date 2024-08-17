@@ -1,5 +1,6 @@
 import pygame
 from enemies import Snake1, Snake2, goodMushrooms, badMushrooms, Bird
+from pygame.locals import *
 
 pygame.init()
 
@@ -63,9 +64,15 @@ class World():
                     self.tile_list.append(tile) 
          
                
-                if tile == 3:  # Yılan soldan sağa
-                    snake2 = Snake2(y=row_count * tile_size, width=tile_size, height=tile_size, image_path="snake2.png", speed=3, screen_width=SCREEN_WIDTH, new_width=tile_size, new_height=tile_size)
-                    self.all_sprites_group.add(snake2)
+                if tile == 3:
+                    snake = Snake1(
+                       x=col_count * tile_size,
+                       y=row_count * tile_size,
+                       image_path="snake.png",
+                       move_distance=tile_size,  # 1 tile_size mesafede ileri geri
+                       speed=3
+                    )
+                    self.all_sprites_group.add(snake)
 
                 if tile == 4:  # Yılan sağdan sola
                     snake1 = Snake1(y=row_count * tile_size, width=tile_size, height=tile_size, image_path="snake.png", speed=3, screen_width=SCREEN_WIDTH, new_width=tile_size, new_height=tile_size)
