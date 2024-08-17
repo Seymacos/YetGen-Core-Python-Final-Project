@@ -52,8 +52,8 @@ class Menu:
         self.text = ''
         self.txt_surface = self.font.render(self.text, True, self.color)
         self.box_color = pygame.Color(255, 219, 88)
-        self.prompt_text = self.font.render("Kullanıcı adınızı giriniz:", True, (0, 0, 0))
-        self.save_prompt_text = self.font.render("Kaydet", True, (0, 0, 0))
+        self.prompt_text = self.font.render("Enter your username", True, (255,255, 255))
+        self.save_prompt_text = self.font.render("Save", True, (255, 255, 255))
         self.saved_message = None
         self.error_message = None
 
@@ -65,7 +65,7 @@ class Menu:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.start_button.is_clicked(event.pos):
                     if not self.text:
-                        self.error_message = "Kullanıcı adı giriniz!"
+                        self.error_message = "Enter your username!"
                         self.saved_message = None
                     else:
                         self.error_message = None
@@ -84,16 +84,16 @@ class Menu:
                     try:
                         with open("username.txt", "w") as f:
                             f.write(self.text)
-                        self.saved_message = "Kullanıcı adı kaydedildi!"
+                        self.saved_message = "Username saved!"
                         self.error_message = None
                     except IOError as e:
                         self.saved_message = f"Kullanıcı adı kaydedilemedi: {e}"
                 elif self.save_button.is_clicked(event.pos):
-                    self.error_message = "Kullanıcı adı giriniz!"
+                    self.error_message = "Enter your username!"
                     self.saved_message = None
                 if self.input_box.collidepoint(event.pos):
                     self.active = not self.active
-                    self.error_message = None  # Clear error message when focusing on the input box
+                    self.error_message = None  
                 else:
                     self.active = False
                 self.color = self.color_active if self.active else self.color_inactive
@@ -102,7 +102,7 @@ class Menu:
                 if self.active:
                     if event.key == pygame.K_RETURN:
                         if not self.text:
-                            self.error_message = "Kullanıcı adı giriniz!"
+                            self.error_message = "Enter your username!"
                         else:
                             self.error_message = None
                             self.text = ''
@@ -122,7 +122,11 @@ class Menu:
         self.screen.blit(self.sound_off_img, (1100, 50))
         self.screen.blit(self.save_img, (100, 200))  # Draw save button
 
-
+        # Draw title in the middle of the screen
+        title_font = pygame.font.Font(None, 100)  # Larger font for the title
+        title_text = title_font.render('PIKSELS', True, (255, 255, 255))
+        title_rect = title_text.get_rect(center=(self.screen_width // 2, 100))  # Adjust vertical position if needed
+        self.screen.blit(title_text, title_rect)
 
 
         pygame.draw.rect(self.screen, self.box_color, self.input_box)

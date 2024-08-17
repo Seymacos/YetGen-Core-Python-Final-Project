@@ -6,17 +6,20 @@ from background_new import World
 from menu2 import Menu
 
 # Pygame'i başlat
-pygame.init()
+try:
+    pygame.init()
+except Exception as e:
+    print(f"Pygame başlatılırken bir hata oluştu: {e}")
+    sys.exit()
 
 # Ekran boyutları
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 game_over = 0
-max_levels = 3
-level = 1
+
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("************")
+pygame.display.set_caption("*PIKSELS")
 
 # Renkler
 LIGHT_BLUE = (173, 216, 230)
@@ -52,26 +55,6 @@ world_data = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ]
 
-world_data2 = [
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,6,0,0,0,0,0,0,1,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,2,2,2,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0,0,6,0,0,0,0,0,0,0,0,2,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,2,0,0,1],
-    [1,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,0,0,0,1],
-    [1,0,0,0,5,2,2,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,2,2,2,2,1,1,2,2,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-]
 # Dünya nesnesini oluştur
 world = World(world_data)
 
@@ -86,18 +69,14 @@ in_menu = True
 # Oyun döngüsü
 clock = pygame.time.Clock()
 
-'''def draw_game_over():
-    font = pygame.font.Font(None, 74)
-    game_over_text = font.render('Oyun Bitti!', True, BLACK)
-    text_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-    screen.blit(game_over_text, text_rect)
-'''
 def draw_game_over(screen):
-    font = pygame.font.Font(None, 74)  # Büyük bir yazı tipi oluştur
-    text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
-    text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
-    screen.blit(text, text_rect)
-
+    try:
+        font = pygame.font.Font(None, 74)  # Büyük bir yazı tipi oluştur
+        text = font.render('Oyun Bitti!', True, (255, 0, 0))  # Kırmızı renkte yazı
+        text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+        screen.blit(text, text_rect)
+    except Exception as e:
+        print(f"Game over yazısı çizilirken bir hata oluştu: {e}")
 
 while True:
     for event in pygame.event.get():
