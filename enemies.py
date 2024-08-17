@@ -1,10 +1,11 @@
 import pygame
 
-class Snake1(pygame.sprite.Sprite):
+#Yılan sınıfı 
+class Snake(pygame.sprite.Sprite):
     def __init__(self, x, y, image_path, move_distance=40, speed=1):
         super().__init__()
-        self.original_image = pygame.image.load(image_path)
-        self.image = pygame.transform.scale(self.original_image, (50,40))
+        self.original_image = pygame.image.load(image_path) 
+        self.image = pygame.transform.scale(self.original_image, (50,40))#Boyutun ölçeklendirilmesi
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -16,10 +17,10 @@ class Snake1(pygame.sprite.Sprite):
 
 
     def update(self):
-        # Yılanın hareketini güncelle
+        # Yılanın hareketini günceller.
         self.rect.x += self.speed * self.direction
 
-        # Hareket mesafesine ulaştığında yönü değiştir
+        # Hareket mesafesine ulaştığında yönü değiştirir.
         if self.rect.x >= self.end_x or self.rect.x <= self.start_x:
             self.direction *= -1
         # Görüntüyü döndür
@@ -36,7 +37,8 @@ class Snake1(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
-class goodMushrooms(pygame.sprite.Sprite):
+#Mantar sınıfı
+class Mushrooms(pygame.sprite.Sprite):
     def __init__(self,x,y,image_path, new_width, new_height):
         super().__init__()
         self.image= pygame.image.load(image_path)
@@ -48,19 +50,7 @@ class goodMushrooms(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
-
-class badMushrooms(pygame.sprite.Sprite):
-    def __init__(self,x,y,image_path, new_width, new_height):
-        super().__init__()
-        self.image= pygame.image.load(image_path)
-        self.image = pygame.transform.smoothscale(self.image, (new_width, new_height))
-        self.rect= self.image.get_rect()
-        self.rect.y=y
-        self.rect.x=x
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
+#Kuş sınıfı
 class Bird(pygame.sprite.Sprite):
     def __init__(self, x, y, image_path, move_distance=40, speed=1):
         super().__init__()
@@ -83,7 +73,7 @@ class Bird(pygame.sprite.Sprite):
         # Hareket mesafesine ulaştığında yönü değiştir
         if self.rect.x >= self.end_x or self.rect.x <= self.start_x:
             self.direction *= -1
-        # Görüntüyü döndür
+        # Görüntüyü döndürür.
         if self.direction == 1:
             # Sağ yönünde hareket ederken
             self.image = pygame.transform.flip(self.image, False, False)
@@ -91,7 +81,6 @@ class Bird(pygame.sprite.Sprite):
             # Sol yönünde hareket ederken
             self.image = pygame.transform.flip(self.image, True, False)
 
-        # Güncellenmiş rect boyutlarını yeniden belirleyin
         self.rect = self.image.get_rect(topleft=self.rect.topleft)
 
     def draw(self, surface):

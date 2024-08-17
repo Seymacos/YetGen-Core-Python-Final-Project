@@ -1,5 +1,5 @@
 import pygame
-from enemies import Snake1, goodMushrooms, badMushrooms, Bird
+from enemies import Snake, Mushrooms, Bird
 from pygame.locals import *
 
 pygame.init()
@@ -18,10 +18,6 @@ exit_n= pygame.transform.scale(exit,(tile_size*2 ,tile_size))
 background_new=pygame.transform.scale(backg, (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
-# platform
-
-
-# ekranı bölüyoruz, parçaları yerleştirmeyi kolaylaştırmak için 12*20 (değişebilir)
  # playerin büyüklüğüne ve hareketlerine göre parkur ve ekran yeniden şekillendirilebilir
 def grid_screen(screen):
     for line in range(0,19):
@@ -47,6 +43,7 @@ class World():
         for row in self.data:
             col_count=0
             for tile in row:
+                #Toprak
                 if tile==1:
                     img= pygame.transform.scale(dirt_img, (tile_size, tile_size))
                     img_rect= img.get_rect()
@@ -54,7 +51,7 @@ class World():
                     img_rect.y= row_count * tile_size
                     tile= (img, img_rect)
                     self.tile_list.append(tile) 
-                
+                #Çimli zemin
                 if tile==2:
                     img= pygame.transform.scale(grass_img, (tile_size, tile_size))
                     img_rect= img.get_rect()
@@ -63,9 +60,8 @@ class World():
                     tile= (img, img_rect)
                     self.tile_list.append(tile) 
          
-               
                 if tile == 3:
-                    snake = Snake1(
+                    snake = Snake(
                        x=col_count * tile_size,
                        y=row_count * tile_size,
                        image_path="snake.png",
@@ -75,12 +71,18 @@ class World():
                     self.all_sprites_group.add(snake)
 
 
-                if tile == 4:  # İyi mantar
-                    good_mushroom = goodMushrooms(x=col_count * tile_size, y=row_count * tile_size, image_path="Mushrooms.png", new_width=tile_size, new_height=tile_size)
+                if tile == 4:
+                    good_mushroom = Mushrooms(
+                        x=col_count * tile_size,  # x koordinatını col_count ile ayarla
+                        y=row_count * tile_size,  # y koordinatını row_count ile ayarla
+                        image_path="Mushrooms.png",
+                        new_width=tile_size,
+                        new_height=tile_size
+                    )
                     self.all_sprites_group.add(good_mushroom)
 
                 if tile == 5:  # Kötü mantar
-                    bad_mushroom = badMushrooms(
+                    bad_mushroom = Mushrooms(
                         x=col_count * tile_size,  # x koordinatını col_count ile ayarla
                         y=row_count * tile_size,  # y koordinatını row_count ile ayarla
                         image_path="BadMushrooms.png",
